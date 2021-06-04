@@ -1,0 +1,69 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "admin",
+      "password": "admin",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "name": "user",
+      "password": "user",
+      "role": "user"
+    },
+    {
+      "id": 3,
+      "name": "hr",
+      "password": "hr",
+      "role": "hr"
+    }
+  ],
+  "employees": [
+    {
+      "id": 1,
+      "FirstName": "laurentiu",
+      "LastName": "istrate",
+      "Birthdate": "25-05-1999",
+      "Phone": "123",
+      "Email": "asd",
+      "HireDate": "25-05-2020",
+      "Salary": "2000",
+      "UserId": "1"
+    },
+    {
+      "id": 2,
+      "FirstName": "laurentiu2",
+      "LastName": "istrate2",
+      "Birthdate": "25-05-1999",
+      "Phone": "123",
+      "Email": "asd",
+      "HireDate": "25-05-2020",
+      "Salary": "2000",
+      "UserId": "1"
+    },
+    {
+      "id": 3,
+      "FirstName": "laurentiu3",
+      "LastName": "istrate3",
+      "Birthdate": "25-05-1999",
+      "Phone": "123",
+      "Email": "asd",
+      "HireDate": "25-05-2020",
+      "Salary": "2000",
+      "UserId": "1"
+    },
+    {
+      "FirstName": "123",
+      "LastName": "123",
+      "Email": "123",
+      "Phone": "123",
+      "Salary": "123",
+      "HireDate": "Tue Jun 01 2021",
+      "id": 4
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
