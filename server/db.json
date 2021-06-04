@@ -22,14 +22,14 @@
   "employees": [
     {
       "id": 1,
-      "FirstName": "laurentiu",
-      "LastName": "istrate",
+      "FirstName": "laurentiu1231231",
+      "LastName": "istrate12321",
       "Birthdate": "25-05-1999",
       "Phone": "123",
-      "Email": "asd",
+      "Email": "asd@gmail.com",
       "HireDate": "25-05-2020",
       "Salary": "2000",
-      "UserId": "1"
+      "DepartmentId": "1"
     },
     {
       "id": 2,
@@ -40,7 +40,7 @@
       "Email": "asd",
       "HireDate": "25-05-2020",
       "Salary": "2000",
-      "UserId": "1"
+      "DepartmentId": "2"
     },
     {
       "id": 3,
@@ -51,7 +51,16 @@
       "Email": "asd",
       "HireDate": "25-05-2020",
       "Salary": "2000",
-      "UserId": "1"
+      "DepartmentId": "3"
+    },
+    {
+      "FirstName": "Ioana",
+      "LastName": "Dumitrescu",
+      "Email": "asdasda",
+      "Phone": "1232131",
+      "Salary": "12312312",
+      "HireDate": "Fri Jun 04 2021",
+      "DepartmentId": "4"
     },
     {
       "FirstName": "123",
@@ -59,8 +68,39 @@
       "Email": "123",
       "Phone": "123",
       "Salary": "123",
-      "HireDate": "Tue Jun 01 2021",
+      "HireDate": "Fri Jun 04 2021",
+      "DepartmentId": "5"
+    },
+    {
+      "FirstName": "asd",
+      "LastName": "asd",
+      "Email": "asd",
+      "Phone": "asd",
+      "Salary": "asd",
+      "HireDate": "Fri Jun 04 2021",
       "id": 4
+    }
+  ],
+  "departments": [
+    {
+      "id": 1,
+      "name": "HR"
+    },
+    {
+      "id": 2,
+      "name": "IT2"
+    },
+    {
+      "id": 3,
+      "name": "Legal"
+    },
+    {
+      "id": 4,
+      "name": "Accounting"
+    },
+    {
+      "id": 5,
+      "name": "Marketing"
     }
   ],
   "profile": {

@@ -1,68 +1,53 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import "./PositionForm.css";
 // import { Form,Button } from "react-bootstrap";
 import { Form, Button, Col, Row } from "react-bootstrap";
 import axios from "axios";
 
-class PositionForm extends Component {
-  state = {
-    companyInfo: []
+export const PositionForm = (props) => {
+  const [formData,setFormData] = useState({
+    name: ''
+  })
+  const  handleChange = (e) => {
+    setFormData({...formData,[e.target.name]: e.target.value })
+   
   };
-  companyData = [];
-  loadCompanyInfo = () => {
+ const handleDepartmentSubmit = (event) => {
+    event.preventDefault();
+    console.log(formData);
+
     axios
-      .get("https://employee-management-fk-api.herokuapp.com/api/company", {
-        headers: {
-          authorization: localStorage.getItem("token") || ""
-        }
+      .post("http://localhost:3000/departments", formData)
+
+      .then((res) => {
+        console.log(res.data);
+        props.onFormClose();
       })
-      .then(response => {
-        this.companyData = response.data;
-        this.setState({ companyInfo: response.data });
-      })
-      .catch(error => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
       });
   };
-  componentWillMount() {
-    this.loadCompanyInfo();
-  }
-  render() {
-    return (
-      <div>
+  return (
+    <div>
+         <div>
         <h2 id="role-form-title">Add Position Details</h2>
 
         <div id="role-form-outer-div">
-          <Form id="form" onSubmit={this.props.onPositionSubmit}>
-            <Form.Group as={Row}>
-              <Form.Label column sm={2}>
-                Company
-              </Form.Label>
-              <Col sm={10} className="form-input">
-                <Form.Control as="select" name="country" required>
-                  <option value="" disabled selected>
-                    Select your option
-                  </option>
-                  {this.companyData.map((data, index) => (
-                    <option value={data["_id"]}>{data["CompanyName"]}</option>
-                  ))}
-                </Form.Control>
-              </Col>
-            </Form.Group>
-
-            <Form.Group as={Row}>
-              <Form.Label column sm={2}>
-                Position
-              </Form.Label>
-              <Col sm={10} className="form-input">
-                <Form.Control
-                  type="Text"
-                  placeholder="Position"
-                  name="Position"
-                  required
-                />
-              </Col>
-            </Form.Group>
+          <Form id="form" onSubmit={handleDepartmentSubmit}>
+          <Form.Group as={Row}>
+          <Form.Label column sm={2}>
+            Department Name
+          </Form.Label>
+          <Col sm={10} className="form-input">
+            <Form.Control
+              type="Text"
+              placeholder="Department Name"
+              name="name"
+              onChange={e=> handleChange(e)}
+              required
+            />
+          </Col>
+        </Form.Group>
 
             <Form.Group as={Row} id="form-submit-button">
               <Col sm={{ span: 10, offset: 2 }}>
@@ -71,7 +56,7 @@ class PositionForm extends Component {
             </Form.Group>
             <Form.Group as={Row} id="form-cancel-button">
               <Col sm={{ span: 10, offset: 2 }} id="form-cancel-button-inner">
-                <Button type="reset" onClick={this.props.onFormClose}>
+                <Button type="reset" onClick={props.onFormClose}>
                   cancel
                 </Button>
               </Col>
@@ -79,8 +64,8 @@ class PositionForm extends Component {
           </Form>
         </div>
       </div>
-    );
-  }
+    </div>
+  )
 }
 
 export default PositionForm;

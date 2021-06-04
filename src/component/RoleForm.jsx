@@ -26,6 +26,7 @@ export const  RoleForm = (props) => {
 
       .then((res) => {
         console.log(res.data);
+        props.onFormClose();
       })
       .catch((err) => {
         console.log(err);

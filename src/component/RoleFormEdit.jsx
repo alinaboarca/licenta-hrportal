@@ -3,14 +3,7 @@ import { Form, Button, Col, Row } from "react-bootstrap";
 import axios from "axios";
 
 export const RoleFormEdit = (props) => {
-  const [formData,setFormData] = useState({
-    FirstName: "",
-    LastName: "",
-    Email: "",
-    Phone: "",
-    Salary: "",
-    HireDate: new Date().toDateString(),
-  })
+  const [formData,setFormData] = useState({...props.editData})
   const  handleChange = (e) => {
     setFormData({...formData,[e.target.name]: e.target.value })
    
@@ -20,10 +13,11 @@ export const RoleFormEdit = (props) => {
     console.log(formData);
 
     axios
-      .put("http://localhost:3000/employees", formData)
+      .put(`http://localhost:3000/employees/${props.editData.id}`, formData)
 
       .then((res) => {
         console.log(res.data);
+        props.onFormEditClose();
       })
       .catch((err) => {
         console.log(err);
@@ -40,24 +34,85 @@ export const RoleFormEdit = (props) => {
         
         <Form.Group as={Row}>
           <Form.Label column sm={2}>
-            Role
+            First Name
           </Form.Label>
           <Col sm={10} className="form-input">
             <Form.Control
               type="Text"
-              placeholder="Role"
-              name="RoleName"
+              placeholder="First Name"
+              name="FirstName"
+              value={formData.FirstName}
+              onChange={e=> handleChange(e)}
               required
-              onChange={e => handleChange(e)}
+            />
+          </Col>
+        </Form.Group>
+        <Form.Group as={Row}>
+          <Form.Label column sm={2}>
+            Last Name
+          </Form.Label>
+          <Col sm={10} className="form-input">
+            <Form.Control
+              type="Text"
+              placeholder="Last Name"
+              name="LastName"
+              onChange={e=> handleChange(e)}
+              value={formData.LastName}
+              required
+            />
+          </Col>
+        </Form.Group>
+        <Form.Group as={Row}>
+          <Form.Label column sm={2}>
+            Email
+          </Form.Label>
+          <Col sm={10} className="form-input">
+            <Form.Control
+              type="Text"
+              placeholder="Email"
+              name="Email"
+              value={formData.Email}
+              onChange={e=> handleChange(e)}
+              required
+            />
+          </Col>
+        </Form.Group>
+        <Form.Group as={Row}>
+          <Form.Label column sm={2}>
+            Phone number
+          </Form.Label>
+          <Col sm={10} className="form-input">
+            <Form.Control
+              type="Text"
+              placeholder="Phone number"
+              name="Phone"
+              value={formData.Phone}
+              onChange={e=> handleChange(e)}
+              required
+            />
+          </Col>
+        </Form.Group>
+        <Form.Group as={Row}>
+          <Form.Label column sm={2}>
+            Salary
+          </Form.Label>
+          <Col sm={10} className="form-input">
+            <Form.Control
+              type="Text"
+              placeholder="Salary"
+              name="Salary"
+              value={formData.Salary}
+              onChange={e=> handleChange(e)}
+              required
             />
           </Col>
         </Form.Group>
 
         <Form.Group as={Row} id="form-submit-button">
           <Col sm={{ span: 10, offset: 2 }}>
-            <Button type="submit">Update</Button>
+            <Button type="submit">Submit</Button>
           </Col>
-        </Form.Group>
+          </Form.Group>
         <Form.Group as={Row} id="form-cancel-button">
           <Col sm={{ span: 10, offset: 2 }} id="form-cancel-button-inner">
             <Button type="reset" onClick={props.onFormEditClose}>

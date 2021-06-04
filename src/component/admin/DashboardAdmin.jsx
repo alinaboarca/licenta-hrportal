@@ -83,15 +83,15 @@ class DashboardAdmin extends Component {
               </div>
               <ul className="navbar-ul">
                 <li>
-                  <Link to="/admin/role">
+                  <Link to="/admin/employees">
                     <FontAwesomeIcon icon={faUsers} className="sidebar-icon" /> 
                     Employees 
                   </Link> 
                 </li>
                 <li>
-                  <Link to="/admin/position">
-                    <FontAwesomeIcon icon={faChair} className="sidebar-icon" /> 
-                    Position 
+                  <Link to="/admin/departments">
+                    <FontAwesomeIcon icon={faBuilding} className="sidebar-icon" /> 
+                    Departments 
                   </Link> 
                 </li>
                 <li>
@@ -127,10 +127,10 @@ class DashboardAdmin extends Component {
               {/* //table */}
               {/* <RoleAdmin/> */}
               <Switch>
-                <Route exact path="/admin/role" component={RoleAdminF} />
+                <Route exact path="/admin/employees" component={RoleAdminF} />
                 {/* <Route path="/admin/role/form" exact component={RoleFormF} /> */}
                 <Route
-                  path="/admin/position"
+                  path="/admin/departments"
                   exact
                   component={PositionF}
                 />

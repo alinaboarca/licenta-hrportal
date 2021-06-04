@@ -23,14 +23,12 @@ class RoleTable extends Component {
   state = {
     roleData: [],
     loading: true,
-
     columnDefs: [
-   
       {
         headerName: "First Name",
         field: "FirstName",
         sortable: true,
-        // width: 150,
+         width: 250,
         // filter: true ,
       },
    
@@ -38,12 +36,26 @@ class RoleTable extends Component {
         headerName: "Last Name",
         field: "LastName",
         sortable: true,
-        // width: 150,
-        // filter: true ,
+        width: 250,
       },
-      
-      
-
+      {
+        headerName: "Email",
+        field: "Email",
+        sortable: true,
+        width: 250,
+      },
+      {
+        headerName: "Phone Number",
+        field: "Phone",
+        sortable: true,
+        width: 250,
+      },
+      {
+        headerName: "Salary",
+        field: "Salary",
+        sortable: true,
+        width: 250,
+      },
       {
         headerName: "",
         field: "edit",
@@ -94,11 +106,7 @@ class RoleTable extends Component {
     console.log(e);
     if (window.confirm("Are you sure to delete this record ? ") == true) {
       axios
-        .delete("https://employee-management-fk-api.herokuapp.com/api/role/" + e, {
-          headers: {
-            authorization: localStorage.getItem("token") || ""
-          }
-        })
+        .delete("http://localhost:3000/employees/" + e)
         .then(res => {
           this.componentDidMount();
         })
@@ -120,7 +128,7 @@ class RoleTable extends Component {
       <FontAwesomeIcon
         icon={faTrash}
         onClick={() =>
-          this.onRoleDelete(params.data.data["_id"])
+          this.onRoleDelete(params.data.id)
         }
       />
     );
@@ -221,7 +229,7 @@ class RoleTable extends Component {
                       <BarLoader
                         css={override}
                         sizeUnit={"px"}
-                        size={150}
+                        size={250}
                         color={"#0000ff"}
                         loading={true}
                       />
