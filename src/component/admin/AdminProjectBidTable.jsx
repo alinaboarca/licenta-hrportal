@@ -22,64 +22,36 @@ const override = css`
 
 class AdminProjectBidTable extends Component {
   state = {
-    projectBidData: [],
+    projectData: [],
     loading: true,
 
     columnDefs: [
-      // {
-      //   headerName: "",
-      //   field: "",
-      //   sortable: true
-      //   // filter: true ,
-      // },
-      // {
-      //   headerName: "",
-      //   field: "",
-      //   sortable: true,
-      //   type: "numberColumn",
-      //   filter: 'agNumberColumnFilter'
-      //   // filter: true ,
-      // },
+      
       {
         headerName: "Project Title",
-        field: "ProjectTitle",
+        field: "name",
         sortable: true
         // filter: true ,
       },
       {
-        headerName: "Portal",
-        field: "PortalName",
-        sortable: true
-        // filter: true ,
-      },
-      {
-        headerName: "Project URL",
-        field: "ProjectURL",
-        sortable: true
-        // filter: true ,
-      },
-      {
-        headerName: "Estimated Time",
-        field: "EstimatedTime",
-        sortable: true
-        // filter: true ,
-      },
-      {
-        headerName: "Estimated Cost",
-        field: "EstimatedCost",
+        headerName: "Start Date",
+        field: "startDate",
         sortable: true,
-        type: "numberColumn",
-        filter: 'agNumberColumnFilter'
+        
         // filter: true ,
       },
       {
-        headerName: "Remark",
-        field: "Remark",
+        headerName: "End Date",
+        field: "endDate",
         sortable: true
         // filter: true ,
       },
-
-
+      {
+        headerName: "Status",
+        field: "status",
+        sortable: true
+        // filter: true ,
+      },
       {
         headerName: "",
         field: "edit",
@@ -114,35 +86,13 @@ class AdminProjectBidTable extends Component {
   projectBidObj = [];
   rowDataT = [];
 
-  loadProjectBidData = () => {
+  loadprojectData = () => {
     axios
-      .get("https://employee-management-fk-api.herokuapp.com/api/admin/project-bid", {
-        headers: {
-          authorization: localStorage.getItem("token") || ""
-        }
-      })
+      .get("http://localhost:3000/projects")
       .then(response => {
-        this.projectBidObj = response.data;
         console.log("response", response.data);
-        this.setState({ projectBidData: response.data });
+        this.setState({ projectData: response.data });
         this.setState({ loading: false });
-        this.rowDataT = [];
-
-        this.projectBidObj.map(data => {
-          let temp = {
-            data,
-            ProjectTitle: data["ProjectTitle"],
-            PortalName: data["portals"][0]["PortalName"],
-            ProjectURL: data["ProjectURL"],
-            EstimatedTime: data["EstimatedTime"],
-            EstimatedCost: data["EstimatedCost"],
-            Remark: data["Remark"],
-
-          };
-
-          this.rowDataT.push(temp);
-        });
-        this.setState({ rowData: this.rowDataT });
       })
       .catch(error => {
         console.log(error);
@@ -151,13 +101,9 @@ class AdminProjectBidTable extends Component {
 
   onProjectBidDelete = e => {
     console.log(e);
-    if (window.confirm("Are you sure to delete this record? ") == true) {
+    if (window.confirm("Are you sure to delete this record? ") === true) {
       axios
-        .delete("https://employee-management-fk-api.herokuapp.com/api/admin/project-bid/" + e, {
-          headers: {
-            authorization: localStorage.getItem("token") || ""
-          }
-        })
+        .delete("http://localhost:3000/projects/" + e)
         .then(res => {
           this.componentDidMount();
         })
@@ -167,27 +113,27 @@ class AdminProjectBidTable extends Component {
     }
   };
   componentDidMount() {
-    this.loadProjectBidData();
+    this.loadprojectData();
   }
   renderButton(params) {
     console.log(params);
     return <FontAwesomeIcon
       icon={faTrash}
-      onClick={() => this.onProjectBidDelete(params.data.data["_id"])}
+      onClick={() => this.onProjectBidDelete(params.data.id)}
     />;
   }
   renderEditButton(params) {
     console.log(params);
     return <FontAwesomeIcon
       icon={faEdit}
-      onClick={() => this.props.onEditProjectBid(params.data.data)}
+      onClick={() => this.props.onEditProjectBid(params.data)}
     />;
   }
 
   render() {
     return (
       <div id="table-outer-div-scroll">
-        <h2 id="role-title">Bidding Details</h2>
+        <h2 id="role-title">Project Details</h2>
         <Button
           variant="primary"
           id="add-button"
@@ -214,7 +160,7 @@ class AdminProjectBidTable extends Component {
               columnDefs={this.state.columnDefs}
               defaultColDef={this.state.defaultColDef}
               columnTypes={this.state.columnTypes}
-              rowData={this.state.rowData}
+              rowData={this.state.projectData}
               // floatingFilter={true}
               // onGridReady={this.onGridReady}
               pagination={true}

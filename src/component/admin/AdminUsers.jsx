@@ -1,14 +1,16 @@
 import React, { Component } from "react";
-import "./AdminProjectBid.css";
-import AdminProjectBidTable from "./AdminProjectBidTable.jsx";
-import { AdminProjectBidForm } from "./AdminProjectBidForm";
-import { AdminProjectBidFormEdit } from "./AdminProjectBidFormEdit";
+import "./AdminPortal.css";
+import AdminPortalTable from "./AdminPortalTable.jsx";
+import {AdminUsersFormEdit} from "./AdminUsersFormEdit";
+import { AdminUsersForm } from "./AdminUsersForm";
 
-class AdminProjectBid extends Component {
+class AdminUsers extends Component {
   state = {
     table: true,
     editForm: false,
-    editData: {}
+    editData: {},
+    addFormStatus: "",
+    editFormStatus: "",
   };
 
   render() {
@@ -16,34 +18,33 @@ class AdminProjectBid extends Component {
       <React.Fragment>
         {this.state.table ? (
           this.state.editForm ? (
-            <AdminProjectBidFormEdit
+            <AdminUsersFormEdit
               onFormEditClose={this.handleEditFormClose}
               editData={this.state.editData}
             />
           ) : (
-            <AdminProjectBidTable
-              onAddProjectBid={this.handleAddProjectBid}
-              onEditProjectBid={this.handleEditProjectBid}
+            <AdminPortalTable
+              onAddPortal={this.handleAddPortal}
+              onEditPortal={this.handleEditPortal}
             />
           )
         ) : (
-          <AdminProjectBidForm
-            onFormClose={this.handleFormClose}
-          />
+          <AdminUsersForm onFormClose={this.handleFormClose} />
         )}
-        </React.Fragment>
+      </React.Fragment>
     );
   }
 
-  handleAddProjectBid = () => {
+  handleAddPortal = () => {
     console.log("clicked1");
     this.setState({ table: false });
   };
-  handleEditProjectBid = e => {
+  handleEditPortal = (e) => {
     console.log(e);
     console.log("clicked6");
     this.setState({ editForm: true });
     this.setState({ editData: e });
+    this.setState({ editFormStatus: e["Status"] });
   };
   handleFormClose = () => {
     console.log("clicked1");
@@ -59,4 +60,4 @@ class AdminProjectBid extends Component {
   };
 }
 
-export default AdminProjectBid;
+export default AdminUsers;

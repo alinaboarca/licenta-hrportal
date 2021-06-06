@@ -28,22 +28,20 @@ class AdminPortalTable extends Component {
     columnDefs: [
 
       {
-        headerName: "Portal",
-        field: "PortalName",
+        headerName: "User",
+        field: "name",
         sortable: true,
         // width: 150,
         // filter: true ,
       },
 
       {
-        headerName: "Status",
-        field: "Status",
+        headerName: "Role",
+        field: "role",
         sortable: true,
         // width: 150,
         // filter: true ,
       },
-
-
 
       {
         headerName: "",
@@ -76,30 +74,11 @@ class AdminPortalTable extends Component {
 
   loadPortalData = () => {
     axios
-      .get("https://employee-management-fk-api.herokuapp.com/api/admin/portal", {
-        headers: {
-          authorization: localStorage.getItem("token") || ""
-        }
-      })
+      .get("http://localhost:3000/users")
       .then(response => {
         this.portalObj = response.data;
-        // }
-        console.log("response", response.data);
         this.setState({ portalData: response.data });
         this.setState({ loading: false });
-        this.rowDataT = [];
-
-        this.portalObj.map(data => {
-          let temp = {
-            data,
-            PortalName: data["PortalName"],
-            Status: data["Status"] == 1 ? "enable" : "disable",
-
-          };
-
-          this.rowDataT.push(temp);
-        });
-        this.setState({ rowData: this.rowDataT });
       })
       .catch(error => {
         console.log(error);
@@ -111,14 +90,10 @@ class AdminPortalTable extends Component {
     if (
       window.confirm(
         "Are you sure to delete this record,It Will Delete All Projects Related to This Portal? "
-      ) == true
+      ) === true
     ) {
       axios
-        .delete("https://employee-management-fk-api.herokuapp.com/api/admin/portal/" + e, {
-          headers: {
-            authorization: localStorage.getItem("token") || ""
-          }
-        })
+        .delete("http://localhost:3000/users/" + e)
         .then(res => {
           this.componentDidMount();
         })
@@ -131,22 +106,21 @@ class AdminPortalTable extends Component {
     this.loadPortalData();
   }
   renderButton(params) {
-    console.log(params);
+    
     return (
       <FontAwesomeIcon
         icon={faTrash}
         onClick={() =>
-          this.onPortalDelete(params.data.data["_id"])
+          this.onPortalDelete(params.data.id)
         }
       />
     );
   }
   renderEditButton(params) {
-    console.log(params);
     return (
       <FontAwesomeIcon
         icon={faEdit}
-        onClick={() => this.props.onEditPortal(params.data.data)}
+        onClick={() => this.props.onEditPortal(params.data)}
       />
     );
   }
@@ -154,7 +128,7 @@ class AdminPortalTable extends Component {
   render() {
     return (
       <div id="table-outer-div-scroll">
-        <h2 id="role-title">Portal Details</h2>
+        <h2 id="role-title">User Details</h2>
         <Button
           variant="primary"
           id="add-button"
@@ -180,7 +154,7 @@ class AdminPortalTable extends Component {
               columnDefs={this.state.columnDefs}
               defaultColDef={this.state.defaultColDef}
               columnTypes={this.state.columnTypes}
-              rowData={this.state.rowData}
+              rowData={this.state.portalData}
               // floatingFilter={true}
               // onGridReady={this.onGridReady}
               pagination={true}

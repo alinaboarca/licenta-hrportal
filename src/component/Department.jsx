@@ -4,20 +4,6 @@ import axios from "axios";
 import DepartmentTable from "./DepartmentTable.jsx";
 import DepartmentForm from "./DepartmentForm.jsx";
 import DepartmentFormEdit from "./DepartmentFormEdit.jsx";
-// import { HashRouter as Router, Route, Link } from "react-router-dom";
-
-// function DepartmentTableF() {
-//   return <DepartmentTable/>;
-// }
-// function DepartmentFormF() {
-//   return  <DepartmentForm onDepartmentSubmit={handleDepartmentSubmit}/>;
-// }
-
-// function handleDepartmentSubmit(e) {
-//   e.preventDefault();
-//   console.log(e);
-
-// }
 
 class Department extends Component {
   state = {

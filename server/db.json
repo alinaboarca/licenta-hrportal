@@ -17,6 +17,12 @@
       "name": "hr",
       "password": "hr",
       "role": "hr"
+    },
+    {
+      "name": "asd12",
+      "password": "asdasd",
+      "role": "amin",
+      "id": 4
     }
   ],
   "employees": [
@@ -101,6 +107,36 @@
     {
       "id": 5,
       "name": "Marketing"
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "name": "Project1",
+      "startDate": "2021-01-01",
+      "endDate": "2021-12-12",
+      "status": "Signed"
+    },
+    {
+      "id": 2,
+      "name": "Project2",
+      "startDate": "2021-01-01",
+      "endDate": "2021-12-12",
+      "status": "ongoing"
+    },
+    {
+      "id": 3,
+      "name": "Project3",
+      "startDate": "2021-01-01",
+      "endDate": "2021-12-12",
+      "status": "ongoing"
+    },
+    {
+      "id": 5,
+      "name": "Project5",
+      "startDate": "2021-01-01",
+      "endDate": "2021-12-12",
+      "status": "completed"
     }
   ],
   "profile": {

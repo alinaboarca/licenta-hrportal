@@ -2,43 +2,32 @@ import React, { Component } from "react";
 import "./DashboardAdmin.css";
 import { HashRouter as Router, Route, Link } from "react-router-dom";
 import { Switch } from "react-router";
-import { Redirect } from "react-router-dom";
 
 import Role from "../Role.jsx";
 import NavBar from "../NavBar.jsx";
 import Position from "../Position.jsx";
-import Department from "../Department.jsx";
-import AdminPortal from "./AdminPortal.jsx";
+import AdminUsers from "./AdminUsers.jsx";
 import AdminProjectBid from "./AdminProjectBid.jsx";
 import NotFound404 from "../NotFound404.jsx";
-
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUsersCog,
   faUsers,
-  faChair,
   faBuilding,
   faDollarSign,
-  faTasks
 } from "@fortawesome/free-solid-svg-icons";
-import { RoleForm } from "../RoleForm";
 
 function RoleAdminF() {
   return <Role />;
-}
-function RoleFormF() {
-  return <RoleForm />;
 }
 
 function PositionF() {
   return <Position />;
 }
-function DepartmentF() {
-  return <Department />;
-}
-function AdminPortalF() {
-  return <AdminPortal />;
+
+function AdminUsersF() {
+  return <AdminUsers />;
 }
 function AdminProjectBidF() {
   return <AdminProjectBid />;
@@ -47,22 +36,24 @@ function AdminProjectBidF() {
 class DashboardAdmin extends Component {
   state = {
     redirect: true,
-    checked: true 
+    checked: true,
   };
-  handleChange=(checked)=> {
+  handleChange = (checked) => {
     console.log("switch");
     // var sidebarV = this.refs.sidebar;
     // var sidebarV = React.findDOMNode( this.refs.sidebar);
     // sidebarV.style.disply="none";
-    
-    if(this.state.checked==true){ 
-       // document.getElementById("sidebar").setAttribute("style", "display:none")
+
+    if (this.state.checked == true) {
+      // document.getElementById("sidebar").setAttribute("style", "display:none")
       document.getElementById("sidebar").setAttribute("class", "display-none");
     }
     // document.getElementById("sidebar").setAttribute("style", "display:block");
-    else{document.getElementById("sidebar").setAttribute("class", "display-block");}   
+    else {
+      document.getElementById("sidebar").setAttribute("class", "display-block");
+    }
     this.setState({ checked });
-  }
+  };
 
   render() {
     return (
@@ -71,7 +62,12 @@ class DashboardAdmin extends Component {
 
         <div id="outer-main-div">
           <div id="outer-nav">
-            <NavBar loginInfo={this.props.data} checked={this.state.checked} handleChange={this.handleChange} onLogout={this.props.onLogout}/>
+            <NavBar
+              loginInfo={this.props.data}
+              checked={this.state.checked}
+              handleChange={this.handleChange}
+              onLogout={this.props.onLogout}
+            />
           </div>
 
           <div id="main-non-nav">
@@ -84,80 +80,49 @@ class DashboardAdmin extends Component {
               <ul className="navbar-ul">
                 <li>
                   <Link to="/admin/employees">
-                    <FontAwesomeIcon icon={faUsers} className="sidebar-icon" /> 
-                    Employees 
-                  </Link> 
+                    <FontAwesomeIcon icon={faUsers} className="sidebar-icon" />
+                    Employees
+                  </Link>
                 </li>
                 <li>
                   <Link to="/admin/departments">
-                    <FontAwesomeIcon icon={faBuilding} className="sidebar-icon" /> 
-                    Departments 
-                  </Link> 
-                </li>
-                <li>
-                  <Link to="/admin/department">
                     <FontAwesomeIcon
                       icon={faBuilding}
                       className="sidebar-icon"
-                    /> 
-                    Department 
-                  </Link> 
+                    />
+                    Departments
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/admin/project-bid">
+                  <Link to="/admin/projects">
                     <FontAwesomeIcon
                       icon={faDollarSign}
                       className="sidebar-icon"
-                    /> 
-                    Project Bidding 
-                  </Link> 
+                    />
+                    Projects Details
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/admin/portal-master">
-                    <FontAwesomeIcon icon={faTasks} className="sidebar-icon" /> 
-                    Portal Master 
-                  </Link> 
+                  <Link to="/admin/users">
+                    <FontAwesomeIcon icon={faUsers} className="sidebar-icon" />
+                    Users
+                  </Link>
                 </li>
-                
               </ul>
             </div>
             {/* <div id="sidebar-top-content" /> */}
             <div id="main-area">
               <div id="sidebar-top-content" />
-              {/* //table */}
-              {/* <RoleAdmin/> */}
               <Switch>
                 <Route exact path="/admin/employees" component={RoleAdminF} />
-                {/* <Route path="/admin/role/form" exact component={RoleFormF} /> */}
+                <Route path="/admin/departments" exact component={PositionF} />
+                <Route path="/admin/users" exact component={AdminUsersF} />
                 <Route
-                  path="/admin/departments"
-                  exact
-                  component={PositionF}
-                />
-                <Route
-                  path="/admin/department"
-                  exact
-                  component={DepartmentF}
-                />
-                 <Route
-                  path="/admin/portal-master"
-                  exact
-                  component={AdminPortalF}
-                />
-                 <Route
-                  path="/admin/project-bid"
+                  path="/admin/projects"
                   exact
                   component={AdminProjectBidF}
                 />
-                {/* <Route
-                  exact
-                  path="/admin"
-                  render={() => <Redirect to="/admin/role" />}
-                /> */}
-                <Route render={() => 
-<NotFound404/>
-                  // <Redirect to="/admin/role" />
-                } />
+                <Route render={() => <NotFound404 />} />
               </Switch>
             </div>
           </div>

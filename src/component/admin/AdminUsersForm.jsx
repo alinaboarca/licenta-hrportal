@@ -1,46 +1,46 @@
-import React, { useState } from "react";
-import "./AdminProjectBidFormEdit.css";
-import axios from "axios";
+import React, {  useState } from "react";
 import { Form, Button, Col, Row } from "react-bootstrap";
+import Axios from "axios";
+// import Form from 'react-bootstrap/Form'
 
-
-export const AdminProjectBidFormEdit = (props) => {
-  const [formData,setFormData] = useState({...props.editData})
+export const AdminUsersForm = (props) => {
+  const [formData,setFormData] = useState({
+    name: "",
+    password: '',
+    role: 'regular-employee'
+  })
   const  handleChange = (e) => {
     setFormData({...formData,[e.target.name]: e.target.value })
    
   };
- const handleProjectSubmit = (event) => {
+ const handleUserUpdate = (event) => {
     event.preventDefault();
     console.log(formData);
 
-    axios
-      .put(`http://localhost:3000/projects/${props.editData.id}`, formData)
+    Axios
+      .post(`http://localhost:3000/users/`, formData)
 
       .then((res) => {
         console.log(res.data);
-        props.onFormEditClose();
+        props.onFormClose();
       })
       .catch((err) => {
         console.log(err);
       });
   };
   return (
-    <React.Fragment>
-    <h2 id="role-form-title">Add Project Details</h2>
-    {/* <div id="role-form-outer-div">
-    <div id="role-form-inner-div"> */}
-
+    <div>
+    <h2 id="role-form-title">Add Portal Details</h2>
     <div id="role-form-outer-div">
-      <Form.Group id="form" onSubmit={handleProjectSubmit}>
+      <Form id="form" onSubmit={handleUserUpdate}>
         <Form.Group as={Row}>
           <Form.Label column sm={2}>
-            Project Title
+            Username
           </Form.Label>
           <Col sm={10} className="form-input">
             <Form.Control
               type="Text"
-              placeholder="Project Title"
+              placeholder="Username"
               name="name"
               value={formData.name}
               onChange={(e) => handleChange(e)}
@@ -50,35 +50,19 @@ export const AdminProjectBidFormEdit = (props) => {
         </Form.Group>
         <Form.Group as={Row}>
           <Form.Label column sm={2}>
-            Start date
+            Password
           </Form.Label>
           <Col sm={10} className="form-input">
             <Form.Control
-              type="Text"
-              placeholder="YYYY-MM-DD"
-              name="startDate"
-              value={formData.startDate}
+              type="password"
+              placeholder="Password"
+              value={formData.password}
+              name="password"
               onChange={(e) => handleChange(e)}
               required
             />
           </Col>
         </Form.Group>
-        <Form.Group as={Row}>
-          <Form.Label column sm={2}>
-            End date
-          </Form.Label>
-          <Col sm={10} className="form-input">
-            <Form.Control
-              type="Text"
-              placeholder="YYYY-MM-DD"
-              name="endDate"
-              value={formData.endDate}
-              onChange={(e) => handleChange(e)}
-              required
-            />
-          </Col>
-        </Form.Group>
-
         <Form.Group as={Row}>
           <Form.Label column sm={2}>
             Status
@@ -86,35 +70,33 @@ export const AdminProjectBidFormEdit = (props) => {
           <Col sm={10} className="form-input">
             <Form.Control
               as="select"
-              defaultValue={formData.status}
+              defaultValue={formData.role}
               onChange={(e) =>
-                setFormData({ ...formData, status: e.target.value })
+                setFormData({ ...formData, role: e.target.value })
               }
               required
-            
             >
-              <option value="Signed">Signed</option>
-              <option  value="Ongoing">Ongoing</option>
-              <option  value="Closed">Closed</option>
+              <option value="regular-employee">Regular Employee</option>
+              <option value="hr">HR Staff Member</option>
+              <option value="amin">Admin</option>
             </Form.Control>
           </Col>
         </Form.Group>
         <Form.Group as={Row} id="form-submit-button">
           <Col sm={{ span: 10, offset: 2 }}>
-            <Button type="submit" onClick={handleProjectSubmit}>Submit</Button>
+            <Button type="submit">Submit</Button>
           </Col>
         </Form.Group>
         <Form.Group as={Row} id="form-cancel-button">
           <Col sm={{ span: 10, offset: 2 }} id="form-cancel-button-inner">
-            <Button type="reset" onClick={props.onFormEditClose}>
+            <Button type="reset" onClick={props.onFormClose}>
               cancel
             </Button>
           </Col>
         </Form.Group>
-      </Form.Group>
+      </Form>
     </div>
-  </React.Fragment>
+  </div>
   )
 }
-
 

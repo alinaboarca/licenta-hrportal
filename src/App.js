@@ -2,10 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import axios from "axios";
 import jwt from "jsonwebtoken";
-
 import Login from "./component/Login.jsx";
-import Temp from "./component/Temp.jsx";
-import NotFound404 from "./component/NotFound404.jsx";
 import DashboardAdmin from "./component/admin/DashboardAdmin.jsx";
 import DashboardHR from "./component/hr/DashboardHR.jsx";
 import DashboardEmployee from "./component/employee/DashboardEmployee.jsx";
@@ -14,9 +11,7 @@ import { Switch } from "react-router";
 import {
   HashRouter as Router,
   Route,
-  Link,
   Redirect,
-  DefaultRoute
 } from "react-router-dom";
 import history from "./history.js";
 
@@ -35,7 +30,7 @@ class App extends Component {
         Account: localStorage.getItem("Account") || "",
         Name: localStorage.getItem("Name") || ""
       },
-      isLogin: localStorage.getItem("isLogin") == "true"
+      isLogin: localStorage.getItem("isLogin") === "true"
 
     }, () => {
       // temporary : for user to see user id and pass of all accounts to explore all features of app
@@ -236,7 +231,7 @@ class App extends Component {
               decodedData["FirstName"] + " " + decodedData["LastName"]
             );
             this.componentDidMount();
-            history.push("#/admin/role");
+            history.push("#/admin/employees");
           }
           if (decodedData.Account == 2) {
             // this.setState({ data: decodedData });
