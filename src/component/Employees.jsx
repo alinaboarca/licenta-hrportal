@@ -4,7 +4,7 @@ import RoleTable from "./RoleTable.jsx";
 import { RoleForm } from "./RoleForm";
 import { RoleFormEdit } from "./RoleFormEdit";
 
-class Role extends Component {
+class Employees extends Component {
   state = {
     table: true,
     editForm: false,
@@ -51,4 +51,4 @@ class Role extends Component {
   };
 }
 
-export default Role;
+export default Employees;

@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import "./AdminProjectBid.css";
-import AdminProjectBidTable from "./AdminProjectBidTable.jsx";
-import { AdminProjectBidForm } from "./AdminProjectBidForm";
-import { AdminProjectBidFormEdit } from "./AdminProjectBidFormEdit";
+import "./Position.css";
+import axios from "axios";
+import PositionTable from "./PositionTable.jsx";
+import PositionForm from "./PositionForm";
+import PositionFormEdit from './PositionFormEdit';
 
-class AdminProjectBid extends Component {
+
+class Departments extends Component {
   state = {
     table: true,
     editForm: false,
@@ -13,33 +15,33 @@ class AdminProjectBid extends Component {
 
   render() {
     return (
+      //  <Router>
       <React.Fragment>
         {this.state.table ? (
           this.state.editForm ? (
-            <AdminProjectBidFormEdit
+           
+            <PositionFormEdit
               onFormEditClose={this.handleEditFormClose}
               editData={this.state.editData}
             />
           ) : (
-            <AdminProjectBidTable
-              onAddProjectBid={this.handleAddProjectBid}
-              onEditProjectBid={this.handleEditProjectBid}
-            />
-          )
+              <PositionTable
+                onAddPosition={this.handleAddPosition}
+                onEditPosition={this.handleEditPosition}
+              />
+            )
         ) : (
-          <AdminProjectBidForm
-            onFormClose={this.handleFormClose}
-          />
-        )}
-        </React.Fragment>
+            <PositionForm
+              onFormClose={this.handleFormClose}
+            />
+          )}
+      </React.Fragment>
     );
   }
-
-  handleAddProjectBid = () => {
-    console.log("clicked1");
+  handleAddPosition = () => {
     this.setState({ table: false });
   };
-  handleEditProjectBid = e => {
+  handleEditPosition = e => {
     console.log(e);
     console.log("clicked6");
     this.setState({ editForm: true });
@@ -57,6 +59,7 @@ class AdminProjectBid extends Component {
     console.log("clicked1");
     this.setState({ table: true });
   };
+
 }
 
-export default AdminProjectBid;
+export default Departments;

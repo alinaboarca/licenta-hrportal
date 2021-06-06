@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import "./AdminProjectBidFormEdit.css";
 import axios from "axios";
 import { Form, Button, Col, Row } from "react-bootstrap";
 
 
-export const AdminProjectBidFormEdit = (props) => {
+export const AdminProjectEditForm = (props) => {
   const [formData,setFormData] = useState({...props.editData})
   const  handleChange = (e) => {
     setFormData({...formData,[e.target.name]: e.target.value })
@@ -28,9 +27,6 @@ export const AdminProjectBidFormEdit = (props) => {
   return (
     <React.Fragment>
     <h2 id="role-form-title">Add Project Details</h2>
-    {/* <div id="role-form-outer-div">
-    <div id="role-form-inner-div"> */}
-
     <div id="role-form-outer-div">
       <Form.Group id="form" onSubmit={handleProjectSubmit}>
         <Form.Group as={Row}>

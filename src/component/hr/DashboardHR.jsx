@@ -3,10 +3,9 @@ import "./DashboardHR.css";
 import { HashRouter as Router, Route, Link } from "react-router-dom";
 import { Switch } from "react-router";
 import { Redirect } from "react-router-dom";
-import Role from "../Role.jsx";
+import Employees from "../Employees.jsx";
 import NavBar from "../NavBar.jsx";
-import RoleForm from "../RoleForm.jsx";
-import Position from "../Position.jsx";
+import Position from "../Departments.jsx";
 import Department from "../Department.jsx";
 import Country from "../Country.jsx";
 import State from "../State.jsx";
@@ -34,7 +33,7 @@ faArchway,
 } from "@fortawesome/free-solid-svg-icons";
 
 function RoleHRF() {
-  return <Role />;
+  return <Employees />;
 }
 
 

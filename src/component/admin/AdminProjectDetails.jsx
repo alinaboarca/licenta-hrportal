@@ -1,12 +1,9 @@
 import React, { Component } from "react";
-import "./Position.css";
-import axios from "axios";
-import PositionTable from "./PositionTable.jsx";
-import PositionForm from "./PositionForm";
-import PositionFormEdit from './PositionFormEdit';
+import { AdminProjectForm } from "./AdminProjectForm";
+import AdminProjectsTable from "./AdminProjectsTable.jsx";
+import { AdminProjectEditForm } from "./AdminProjectEditForm";
 
-
-class Position extends Component {
+class AdminProjectDetails extends Component {
   state = {
     table: true,
     editForm: false,
@@ -15,33 +12,33 @@ class Position extends Component {
 
   render() {
     return (
-      //  <Router>
       <React.Fragment>
         {this.state.table ? (
           this.state.editForm ? (
-           
-            <PositionFormEdit
+            <AdminProjectEditForm
               onFormEditClose={this.handleEditFormClose}
               editData={this.state.editData}
             />
           ) : (
-              <PositionTable
-                onAddPosition={this.handleAddPosition}
-                onEditPosition={this.handleEditPosition}
-              />
-            )
-        ) : (
-            <PositionForm
-              onFormClose={this.handleFormClose}
+            <AdminProjectsTable
+              onAddProjectBid={this.handleAddProjectBid}
+              onEditProjectBid={this.handleEditProjectBid}
             />
-          )}
-      </React.Fragment>
+          )
+        ) : (
+          <AdminProjectForm
+            onFormClose={this.handleFormClose}
+          />
+        )}
+        </React.Fragment>
     );
   }
-  handleAddPosition = () => {
+
+  handleAddProjectBid = () => {
+    console.log("clicked1");
     this.setState({ table: false });
   };
-  handleEditPosition = e => {
+  handleEditProjectBid = e => {
     console.log(e);
     console.log("clicked6");
     this.setState({ editForm: true });
@@ -59,7 +56,6 @@ class Position extends Component {
     console.log("clicked1");
     this.setState({ table: true });
   };
-
 }
 
-export default Position;
+export default AdminProjectDetails;

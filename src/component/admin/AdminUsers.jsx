@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import "./AdminPortal.css";
-import AdminPortalTable from "./AdminPortalTable.jsx";
 import {AdminUsersFormEdit} from "./AdminUsersFormEdit";
 import { AdminUsersForm } from "./AdminUsersForm";
+import AdminUsersTable from "./AdminUsersTable.jsx";
 
 class AdminUsers extends Component {
   state = {
@@ -23,7 +22,7 @@ class AdminUsers extends Component {
               editData={this.state.editData}
             />
           ) : (
-            <AdminPortalTable
+            <AdminUsersTable
               onAddPortal={this.handleAddPortal}
               onEditPortal={this.handleEditPortal}
             />

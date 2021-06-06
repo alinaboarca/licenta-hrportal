@@ -1,9 +1,8 @@
-import React, { Component, useState } from "react";
-import "./AdminProjectBidForm.css";
+import React, { useState } from "react";
 import axios from "axios";
 import { Form, Button, Col, Row } from "react-bootstrap";
 
-export const AdminProjectBidForm = (props) => {
+export const AdminProjectForm = (props) => {
   const [formData, setFormData] = useState({
     name: "",
     startDate: "",

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./AdminPortalTable.css";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
@@ -20,7 +19,7 @@ const override = css`
   border-color: red;
 `;
 
-class AdminPortalTable extends Component {
+class AdminUsersTable extends Component {
   state = {
     portalData: [],
     loading: true,
@@ -179,4 +178,4 @@ class AdminPortalTable extends Component {
   }
 }
 
-export default AdminPortalTable;
+export default AdminUsersTable;

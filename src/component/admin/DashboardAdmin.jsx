@@ -2,12 +2,8 @@ import React, { Component } from "react";
 import "./DashboardAdmin.css";
 import { HashRouter as Router, Route, Link } from "react-router-dom";
 import { Switch } from "react-router";
-
-import Role from "../Role.jsx";
 import NavBar from "../NavBar.jsx";
-import Position from "../Position.jsx";
 import AdminUsers from "./AdminUsers.jsx";
-import AdminProjectBid from "./AdminProjectBid.jsx";
 import NotFound404 from "../NotFound404.jsx";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,20 +13,23 @@ import {
   faBuilding,
   faDollarSign,
 } from "@fortawesome/free-solid-svg-icons";
+import AdminProjectDetails from "./AdminProjectDetails.jsx";
+import Departments from "../Departments.jsx";
+import Employees from "../Employees.jsx";
 
-function RoleAdminF() {
-  return <Role />;
+function AdminEmployees() {
+  return <Employees />;
 }
 
-function PositionF() {
-  return <Position />;
+function DepartmentsF() {
+  return <Departments />;
 }
 
 function AdminUsersF() {
   return <AdminUsers />;
 }
-function AdminProjectBidF() {
-  return <AdminProjectBid />;
+function AdminProjects() {
+  return <AdminProjectDetails />;
 }
 
 class DashboardAdmin extends Component {
@@ -114,13 +113,13 @@ class DashboardAdmin extends Component {
             <div id="main-area">
               <div id="sidebar-top-content" />
               <Switch>
-                <Route exact path="/admin/employees" component={RoleAdminF} />
-                <Route path="/admin/departments" exact component={PositionF} />
+                <Route exact path="/admin/employees" component={AdminEmployees} />
+                <Route path="/admin/departments" exact component={DepartmentsF} />
                 <Route path="/admin/users" exact component={AdminUsersF} />
                 <Route
                   path="/admin/projects"
                   exact
-                  component={AdminProjectBidF}
+                  component={AdminProjects}
                 />
                 <Route render={() => <NotFound404 />} />
               </Switch>

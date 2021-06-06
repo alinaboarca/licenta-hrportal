@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./AdminProjectBidTable.css";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
@@ -20,7 +19,7 @@ const override = css`
   border-color: red;
 `;
 
-class AdminProjectBidTable extends Component {
+class AdminProjectsTable extends Component {
   state = {
     projectData: [],
     loading: true,
@@ -185,4 +184,4 @@ class AdminProjectBidTable extends Component {
   }
 }
 
-export default AdminProjectBidTable;
+export default AdminProjectsTable;
