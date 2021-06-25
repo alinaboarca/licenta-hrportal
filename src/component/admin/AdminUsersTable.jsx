@@ -28,7 +28,7 @@ class AdminUsersTable extends Component {
 
       {
         headerName: "User",
-        field: "name",
+        field: "Username",
         sortable: true,
         // width: 150,
         // filter: true ,
@@ -36,7 +36,7 @@ class AdminUsersTable extends Component {
 
       {
         headerName: "Role",
-        field: "role",
+        field: "Role",
         sortable: true,
         // width: 150,
         // filter: true ,
@@ -73,10 +73,9 @@ class AdminUsersTable extends Component {
 
   loadPortalData = () => {
     axios
-      .get("http://localhost:3000/users")
+      .get("http://localhost:3002/users")
       .then(response => {
-        this.portalObj = response.data;
-        this.setState({ portalData: response.data });
+       this.setState({ portalData: response.data });
         this.setState({ loading: false });
       })
       .catch(error => {
@@ -92,7 +91,7 @@ class AdminUsersTable extends Component {
       ) === true
     ) {
       axios
-        .delete("http://localhost:3000/users/" + e)
+        .delete("http://localhost:3002/users/" + e)
         .then(res => {
           this.componentDidMount();
         })
@@ -110,7 +109,7 @@ class AdminUsersTable extends Component {
       <FontAwesomeIcon
         icon={faTrash}
         onClick={() =>
-          this.onPortalDelete(params.data.id)
+          this.onPortalDelete(params.data.UserId)
         }
       />
     );
@@ -128,34 +127,18 @@ class AdminUsersTable extends Component {
     return (
       <div id="table-outer-div-scroll">
         <h2 id="role-title">User Details</h2>
-        <Button
-          variant="primary"
-          id="add-button"
-          onClick={this.props.onAddPortal}
-        >
-          <FontAwesomeIcon icon={faPlus} id="plus-icon" />
-          Add
-        </Button>
         <div id="clear-both" />
 
         {!this.state.loading ? (
           <div
             id="table-div"
             className="ag-theme-balham"
-          //   style={
-          //     {
-          //     height: "500px",
-          //     width: "100%"
-          //   }
-          // }
           >
             <AgGridReact
               columnDefs={this.state.columnDefs}
               defaultColDef={this.state.defaultColDef}
               columnTypes={this.state.columnTypes}
               rowData={this.state.portalData}
-              // floatingFilter={true}
-              // onGridReady={this.onGridReady}
               pagination={true}
               paginationPageSize={10}
               getRowHeight={this.state.getRowHeight}

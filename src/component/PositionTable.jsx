@@ -26,7 +26,7 @@ class PositionTable extends Component {
     columnDefs: [
       {
         headerName: "Department",
-        field: "name",
+        field: "Name",
         sortable: true,
         // width: 150,
         // filter: true ,
@@ -63,7 +63,7 @@ class PositionTable extends Component {
 
   loadDepartmentData = () => {
     axios
-      .get("http://localhost:3000/departments")
+      .get("http://localhost:3002/departments")
       .then((response) => {
         console.log("departments", response.data);
         this.setState({ departmentData: response.data });
@@ -78,7 +78,7 @@ class PositionTable extends Component {
     console.log(e);
     if (window.confirm("Are you sure to delete this record ? ") === true) {
       axios
-        .delete("http://localhost:3000/departments/" + e)
+        .delete("http://localhost:3002/departments/" + e)
         .then((res) => {
           this.componentDidMount();
         })
@@ -99,12 +99,12 @@ class PositionTable extends Component {
     return (
       <FontAwesomeIcon
         icon={faTrash}
-        onClick={() => this.onPositionDelete(params.data.id)}
+        onClick={() => this.onPositionDelete(params.data.DepartmentId)}
       />
     );
   }
   renderEditButton(params) {
-    console.log(params);
+    console.log('asdsadasda',params.data);
     return (
       <FontAwesomeIcon
         icon={faEdit}

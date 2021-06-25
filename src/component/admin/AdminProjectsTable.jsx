@@ -28,26 +28,26 @@ class AdminProjectsTable extends Component {
       
       {
         headerName: "Project Title",
-        field: "name",
+        field: "Name",
         sortable: true
         // filter: true ,
       },
       {
         headerName: "Start Date",
-        field: "startDate",
+        field: "StartDate",
         sortable: true,
         
         // filter: true ,
       },
       {
         headerName: "End Date",
-        field: "endDate",
+        field: "EndDate",
         sortable: true
         // filter: true ,
       },
       {
         headerName: "Status",
-        field: "status",
+        field: "Status",
         sortable: true
         // filter: true ,
       },
@@ -87,7 +87,7 @@ class AdminProjectsTable extends Component {
 
   loadprojectData = () => {
     axios
-      .get("http://localhost:3000/projects")
+      .get("http://localhost:3002/projects")
       .then(response => {
         console.log("response", response.data);
         this.setState({ projectData: response.data });
@@ -102,7 +102,7 @@ class AdminProjectsTable extends Component {
     console.log(e);
     if (window.confirm("Are you sure to delete this record? ") === true) {
       axios
-        .delete("http://localhost:3000/projects/" + e)
+        .delete("http://localhost:3002/projects/" + e)
         .then(res => {
           this.componentDidMount();
         })
@@ -118,7 +118,7 @@ class AdminProjectsTable extends Component {
     console.log(params);
     return <FontAwesomeIcon
       icon={faTrash}
-      onClick={() => this.onProjectBidDelete(params.data.id)}
+      onClick={() => this.onProjectBidDelete(params.data.ProjectId)}
     />;
   }
   renderEditButton(params) {

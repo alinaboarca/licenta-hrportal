@@ -14,7 +14,7 @@ import axios from "axios";
     console.log(formData);
 
     axios
-      .put(`http://localhost:3000/departments/${props.editData.id}`, formData)
+      .put(`http://localhost:3002/departments/${props.editData.DepartmentId}`, formData)
 
       .then((res) => {
         console.log(res.data);
@@ -43,9 +43,9 @@ import axios from "axios";
                 <Form.Control
                   type="Text"
                   placeholder="Department Name"
-                  name="name"
+                  name="Name"
                   required
-                  value={formData.name}
+                  value={formData.Name}
                   onChange={value => handleChange(value)}
                 />
               </Col>

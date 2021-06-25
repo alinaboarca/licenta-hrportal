@@ -88,7 +88,7 @@ class RoleTable extends Component {
 
   loadRoleData = () => {
     axios
-      .get("http://localhost:3000/employees")
+      .get("http://localhost:3002/employees")
       .then(response => {
         this.roleObj = response.data;
         this.setState({ roleData: response.data });
@@ -106,7 +106,7 @@ class RoleTable extends Component {
     console.log(e);
     if (window.confirm("Are you sure to delete this record ? ") == true) {
       axios
-        .delete("http://localhost:3000/employees/" + e)
+        .delete("http://localhost:3002/employees/" + e)
         .then(res => {
           this.componentDidMount();
         })
@@ -128,7 +128,7 @@ class RoleTable extends Component {
       <FontAwesomeIcon
         icon={faTrash}
         onClick={() =>
-          this.onRoleDelete(params.data.id)
+          this.onRoleDelete(params.data.EmployeeId)
         }
       />
     );

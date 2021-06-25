@@ -4,10 +4,10 @@ import { Form, Button, Col, Row } from "react-bootstrap";
 
 export const AdminProjectForm = (props) => {
   const [formData, setFormData] = useState({
-    name: "",
-    startDate: "",
-    endDate: "",
-    status: "ongoing",
+    Name: "",
+    StartDate: "",
+    EndDate: "",
+    Status: "ongoing",
   });
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -18,7 +18,7 @@ export const AdminProjectForm = (props) => {
     console.log(formData);
 
     axios
-      .post("http://localhost:3000/projects", formData)
+      .post("http://localhost:3002/projects", formData)
 
       .then((res) => {
         console.log(res.data);
@@ -44,7 +44,7 @@ export const AdminProjectForm = (props) => {
               <Form.Control
                 type="Text"
                 placeholder="Project Title"
-                name="name"
+                name="Name"
                 onChange={(e) => handleChange(e)}
                 required
               />
@@ -58,7 +58,7 @@ export const AdminProjectForm = (props) => {
               <Form.Control
                 type="Text"
                 placeholder="YYYY-MM-DD"
-                name="startDate"
+                name="StartDate"
                 onChange={(e) => handleChange(e)}
                 required
               />
@@ -72,7 +72,7 @@ export const AdminProjectForm = (props) => {
               <Form.Control
                 type="Text"
                 placeholder="YYYY-MM-DD"
-                name="endDate"
+                name="EndDate"
                 onChange={(e) => handleChange(e)}
                 required
               />
@@ -87,7 +87,7 @@ export const AdminProjectForm = (props) => {
               <Form.Control
                 as="select"
                 onChange={(e) =>
-                  setFormData({ ...formData, status: e.target.value })
+                  setFormData({ ...formData, Status: e.target.value })
                 }
                 required
               >

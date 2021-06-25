@@ -13,7 +13,7 @@ export const AdminUsersFormEdit = (props) => {
     console.log(formData);
 
     Axios
-      .put(`http://localhost:3000/users/${props.editData.id}`, formData)
+      .put(`http://localhost:3002/users/${props.editData.UserId}`, formData)
 
       .then((res) => {
         console.log(res.data);
@@ -25,7 +25,7 @@ export const AdminUsersFormEdit = (props) => {
   };
   return (
     <div>
-    <h2 id="role-form-title">Add Portal Details</h2>
+    <h2 id="role-form-title">Edit User Details</h2>
     <div id="role-form-outer-div">
       <Form id="form" onSubmit={handleUserUpdate}>
         <Form.Group as={Row}>
@@ -36,23 +36,8 @@ export const AdminUsersFormEdit = (props) => {
             <Form.Control
               type="Text"
               placeholder="Username"
-              name="name"
-              value={formData.name}
-              onChange={(e) => handleChange(e)}
-              required
-            />
-          </Col>
-        </Form.Group>
-        <Form.Group as={Row}>
-          <Form.Label column sm={2}>
-            Password
-          </Form.Label>
-          <Col sm={10} className="form-input">
-            <Form.Control
-              type="password"
-              placeholder="Password"
-              value={formData.password}
-              name="password"
+              name="Username"
+              value={formData.Username}
               onChange={(e) => handleChange(e)}
               required
             />
@@ -65,9 +50,9 @@ export const AdminUsersFormEdit = (props) => {
           <Col sm={10} className="form-input">
             <Form.Control
               as="select"
-              defaultValue={formData.role}
+              defaultValue={formData.Role}
               onChange={(e) =>
-                setFormData({ ...formData, role: e.target.value })
+                setFormData({ ...formData, Role: e.target.value })
               }
               required
             >

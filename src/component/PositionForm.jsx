@@ -6,7 +6,7 @@ import axios from "axios";
 
 export const PositionForm = (props) => {
   const [formData,setFormData] = useState({
-    name: ''
+    Name: ''
   })
   const  handleChange = (e) => {
     setFormData({...formData,[e.target.name]: e.target.value })
@@ -17,7 +17,7 @@ export const PositionForm = (props) => {
     console.log(formData);
 
     axios
-      .post("http://localhost:3000/departments", formData)
+      .post("http://localhost:3002/departments", formData)
 
       .then((res) => {
         console.log(res.data);
@@ -42,7 +42,7 @@ export const PositionForm = (props) => {
             <Form.Control
               type="Text"
               placeholder="Department Name"
-              name="name"
+              name="Name"
               onChange={e=> handleChange(e)}
               required
             />

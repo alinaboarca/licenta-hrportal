@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {AdminUsersFormEdit} from "./AdminUsersFormEdit";
-import { AdminUsersForm } from "./AdminUsersForm";
 import AdminUsersTable from "./AdminUsersTable.jsx";
 
 class AdminUsers extends Component {
@@ -15,7 +14,7 @@ class AdminUsers extends Component {
   render() {
     return (
       <React.Fragment>
-        {this.state.table ? (
+        {this.state.table && (
           this.state.editForm ? (
             <AdminUsersFormEdit
               onFormEditClose={this.handleEditFormClose}
@@ -27,8 +26,6 @@ class AdminUsers extends Component {
               onEditPortal={this.handleEditPortal}
             />
           )
-        ) : (
-          <AdminUsersForm onFormClose={this.handleFormClose} />
         )}
       </React.Fragment>
     );

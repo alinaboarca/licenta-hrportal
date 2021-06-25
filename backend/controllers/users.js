@@ -7,7 +7,7 @@ const registerUser = async (req, res) => {
 
     //verificam daca exista deja un user cu numele introdus
     let userFound;
-    userFound = await usersService.findUserByUsername(req.body.username)
+    userFound = await usersService.findUserByUsername(req.body.Username)
     console.log(req.body);
 
     if (userFound) {
@@ -17,13 +17,13 @@ const registerUser = async (req, res) => {
     const salt = bcrypt.genSaltSync(10);
 
     //generam parola criptata
-    let ePassword = bcrypt.hashSync(req.body.password, salt);
+    let ePassword = bcrypt.hashSync(req.body.Password, salt);
 
     try {
         UsersTable.create({
-            Username: req.body.username,
+            Username: req.body.Username,
             Password: ePassword,
-
+            Role: req.body.Role
         }).then(result => {
            
             res.send(result );
@@ -67,7 +67,49 @@ const login = async (req, res) => {
     }
 };
 
+
+const getAllUsers = async (req, res) => {
+
+    
+    try {
+        UsersTable.findAll().then(result => { res.send(result ); });
+    } catch (err) {
+        return res.send(err);
+    }
+}
+
+const editUser = async (req, res) => {
+
+    
+    try {
+        UsersTable.update({
+            Username: req.body.Username,
+            Role: req.body.Role
+        },{ where: { UserId: req.params.id } }).then(result => {
+           
+            res.send(result );
+        });
+    } catch (err) {
+        return res.send(err);
+    }
+}
+
+const deleteUser = async (req, res) => {
+
+    
+    try {
+        UsersTable.destroy({ where: { UserId: req.params.id } }).then(result => res.status(200).send({msg: 'success'}));
+    } catch (err) {
+        return res.send(err);
+    }
+}
+
+
+
 module.exports = {
     registerUser,
-    login
+    login,
+    getAllUsers,
+    deleteUser,
+    editUser
 }

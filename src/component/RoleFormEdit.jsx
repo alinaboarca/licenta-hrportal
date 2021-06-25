@@ -13,7 +13,7 @@ export const RoleFormEdit = (props) => {
     console.log(formData);
 
     axios
-      .put(`http://localhost:3000/employees/${props.editData.id}`, formData)
+      .put(`http://localhost:3002/employees/${props.editData.EmployeeId}`, formData)
 
       .then((res) => {
         console.log(res.data);

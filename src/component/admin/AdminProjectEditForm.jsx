@@ -14,7 +14,7 @@ export const AdminProjectEditForm = (props) => {
     console.log(formData);
 
     axios
-      .put(`http://localhost:3000/projects/${props.editData.id}`, formData)
+      .put(`http://localhost:3002/projects/${props.editData.ProjectId}`, formData)
 
       .then((res) => {
         console.log(res.data);
@@ -37,8 +37,8 @@ export const AdminProjectEditForm = (props) => {
             <Form.Control
               type="Text"
               placeholder="Project Title"
-              name="name"
-              value={formData.name}
+              name="Name"
+              value={formData.Name}
               onChange={(e) => handleChange(e)}
               required
             />
@@ -52,8 +52,8 @@ export const AdminProjectEditForm = (props) => {
             <Form.Control
               type="Text"
               placeholder="YYYY-MM-DD"
-              name="startDate"
-              value={formData.startDate}
+              name="StartDate"
+              value={formData.StartDate}
               onChange={(e) => handleChange(e)}
               required
             />
@@ -67,8 +67,8 @@ export const AdminProjectEditForm = (props) => {
             <Form.Control
               type="Text"
               placeholder="YYYY-MM-DD"
-              name="endDate"
-              value={formData.endDate}
+              name="EndDate"
+              value={formData.EndDate}
               onChange={(e) => handleChange(e)}
               required
             />
@@ -82,9 +82,9 @@ export const AdminProjectEditForm = (props) => {
           <Col sm={10} className="form-input">
             <Form.Control
               as="select"
-              defaultValue={formData.status}
+              defaultValue={formData.Status}
               onChange={(e) =>
-                setFormData({ ...formData, status: e.target.value })
+                setFormData({ ...formData, Status: e.target.value })
               }
               required
             
