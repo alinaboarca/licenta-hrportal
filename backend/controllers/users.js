@@ -37,7 +37,7 @@ const registerUser = async (req, res) => {
 const login = async (req, res) => {
 
     //verific daca am ceva in body-ul requestului
-    if (req.body.username === "" || req.body.password === "") {
+    if (req.body.Username === "" || req.body.Password === "") {
         return res.status(500).send({ message: "Email or password is empty" });
     }
 
@@ -45,11 +45,11 @@ const login = async (req, res) => {
 
     //caut user-ul dupa nume in baza de date
     let userFound;
-    userFound = await usersService.findUserByUsername(req.body.username)
+    userFound = await usersService.findUserByUsername(req.body.Username);
 
     try {
         //compar parolele
-        const validPass = bcrypt.compareSync(req.body.password, userFound.Password);
+        const validPass = bcrypt.compareSync(req.body.Password, userFound.Password);
         if (!validPass) {
             return res.status(400).send({ message: "Wrong password" });
         }

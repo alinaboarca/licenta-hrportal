@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import "./Education.css";
 import axios from "axios";
 import EducationTable from "./EducationTable.jsx";
-import EducationForm from "./EducationForm.jsx";
-import EducationFormEdit from "./EducationFormEdit.jsx";
+import  { BankAccountFormEdit } from "./EducationFormEdit";
+import {BankAccountForm} from "./EducationForm";
 class Education extends Component {
   state = {
     table: true,
@@ -15,12 +15,9 @@ class Education extends Component {
   render() {
     return (
       <React.Fragment>
-        {/* <h1>iiiiiiiiiinnnnnnnnnnnnnn{
-          JSON.stringify(this.props.data)}</h1> */}
-
         {this.state.table ? (
           this.state.editForm ? (
-            <EducationFormEdit
+            <BankAccountFormEdit
               onEducationEditUpdate={this.handleEducationEditUpdate}
               onFormEditClose={this.handleEditFormClose}
               editData={this.state.editData}
@@ -34,41 +31,16 @@ class Education extends Component {
               />
             )
         ) : (
-            <EducationForm
-              onEducationSubmit={this.handleEducationSubmit}
+            <BankAccountForm
               onFormClose={this.handleFormClose}
+              data={this.props.data}
               onGenderChange={this.handleAddFormGenderChange}
             />
           )}
       </React.Fragment>
     );
   }
-  handleEducationSubmit = event => {
-    event.preventDefault();
-    console.log("id", event.target[0].value, event.target[1].value);
-    this.setState({ table: true });
 
-    let body = {
-
-      SchoolUniversity: event.target[0].value,
-      Degree: event.target[1].value,
-      Grade: event.target[2].value,
-      PassingOfYear: event.target[3].value,
-    };
-    axios
-      .post("https://employee-management-fk-api.herokuapp.com/api/education/" + this.props.data["_id"], body, {
-        headers: {
-          authorization: localStorage.getItem("token") || ""
-        }
-      })
-      .then(res => {
-        this.setState({ table: false });
-        this.setState({ table: true });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
   handleAddEducation = () => {
     console.log("clicked1");
     this.setState({ table: false });
@@ -78,7 +50,6 @@ class Education extends Component {
     console.log("clicked6");
     this.setState({ editForm: true });
     this.setState({ editData: e });
-    this.setState({ editFormGender: e["Gender"] })
   };
   handleFormClose = () => {
     console.log("clicked1");

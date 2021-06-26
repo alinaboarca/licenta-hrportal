@@ -8,7 +8,7 @@ class Employees extends Component {
   state = {
     table: true,
     editForm: false,
-    editData: {},
+    editData: {}, 
   };
 
   render() {
@@ -19,6 +19,7 @@ class Employees extends Component {
             <RoleFormEdit
               onFormEditClose={this.handleEditFormClose}
               editData={this.state.editData}
+              canEditSalary={true}
             />
           ) : (
             <RoleTable

@@ -11,49 +11,60 @@ import WorkExperience from "./WorkExperience.jsx";
 import LeaveApplicationEmp from "./LeaveApplicationEmp.jsx";
 import NotFound404 from "../NotFound404.jsx";
 
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUsers,
- faUser,
-faFileAlt,
-faUniversity,
-faBriefcase,
-faMale,
+  faUser,
+  faFileAlt,
+  faUniversity,
+  faBriefcase,
+  faMale,
 } from "@fortawesome/free-solid-svg-icons";
-
-
+import Axios from "axios";
 
 class DashboardHR extends Component {
   state = {
     redirect: true,
-    checked: true 
+    checked: true,
+    employee: {},
+    loading: true
   };
-  handleChange=(checked)=> {
+  handleChange = (checked) => {
     console.log("switch");
     // var sidebarV = this.refs.sidebar;
     // var sidebarV = React.findDOMNode( this.refs.sidebar);
     // sidebarV.style.disply="none";
-    
-    if(this.state.checked==true){ 
-       // document.getElementById("sidebar").setAttribute("style", "display:none")
+
+    if (this.state.checked == true) {
+      // document.getElementById("sidebar").setAttribute("style", "display:none")
       document.getElementById("sidebar").setAttribute("class", "display-none");
     }
     // document.getElementById("sidebar").setAttribute("style", "display:block");
-    else{document.getElementById("sidebar").setAttribute("class", "display-block");}   
+    else {
+      document.getElementById("sidebar").setAttribute("class", "display-block");
+    }
     this.setState({ checked });
-  }
+  };
 
+  componentDidMount() {
+    Axios.get(
+      "http://localhost:3002/employees/user/" + this.props.data["UserId"]
+    ).then((res) => {
+      console.log(res.data);
+      this.setState({ employee: res.data, loading: false});
+    });
+  }
   render() {
     return (
-      <Router>
+      <>
+      {!this.state.loading && <Router>
         {/* <Redirect to='/login'  /> */}
 
         <div id="outer-main-div">
           <div id="outer-nav">
-            {/* <NavBar loginInfo={this.props.data} /> */}
+            {/* <NavBar loginInfo={this.state.employee} /> */}
             <NavBar
-              loginInfo={this.props.data}
+              loginInfo={this.state.employee}
               checked={this.state.checked}
               handleChange={this.handleChange}
               onLogout={this.props.onLogout}
@@ -72,56 +83,52 @@ class DashboardHR extends Component {
                   <Link
                     to={
                       "/employee/" +
-                      this.props.data["_id"] +
+                      this.state.employee["EmployeeId"] +
                       "/personal-info"
                     }
                   >
-                    <FontAwesomeIcon
-                      icon={faUser}
-                      className="sidebar-icon"
-                    />
+                    <FontAwesomeIcon icon={faUser} className="sidebar-icon" />
                     Personal Information
                   </Link>
                 </li>
                 <li>
                   <Link
                     to={
-                      "/employee/" + this.props.data["_id"] + "/education"
+                      "/employee/" +
+                      this.state.employee["EmployeeId"] +
+                      "/bank-account"
                     }
                   >
                     <FontAwesomeIcon
                       icon={faUniversity}
                       className="sidebar-icon"
                     />
-                    Education
+                    Bank Account
                   </Link>
                 </li>
                 <li>
-                  <Link to={
-                      "/employee/" + this.props.data["_id"] + "/family-info"
-                    }>
-                    <FontAwesomeIcon
-                      icon={faMale}
-                      className="sidebar-icon"
-                    />
-                    Dependents
-                  </Link>
-                </li>
-                <li>
-                  <Link to={
-                      "/employee/" + this.props.data["_id"] + "/work-experience"
-                    }>
+                  <Link
+                    to={
+                      "/employee/" +
+                      this.state.employee["EmployeeId"] +
+                      "/work-experience"
+                    }
+                  >
                     <FontAwesomeIcon
                       icon={faBriefcase}
                       className="sidebar-icon"
                     />
-                    WorkExp
+                    Project Work
                   </Link>
                 </li>
                 <li>
-                  <Link to={
-                      "/employee/" + this.props.data["_id"] + "/leave-application-emp"
-                    }>
+                  <Link
+                    to={
+                      "/employee/" +
+                      this.state.employee["EmployeeId"] +
+                      "/leave-application-emp"
+                    }
+                  >
                     <FontAwesomeIcon
                       icon={faFileAlt}
                       className="sidebar-icon"
@@ -131,67 +138,51 @@ class DashboardHR extends Component {
                 </li>
               </ul>
             </div>
-            {/* <div id="sidebar-top-content" /> */}
             <div id="main-area">
               <div id="sidebar-top-content" />
-              {/* //table */}
-              {/* <RoleHR/> */}
+
               <Switch>
-                {/* <Route
-                  path="/employee/:id/personal-info"
-                  exact
-                  component={PersonalInfoF}
-                /> */}
                 <Route
                   exact
                   path="/employee/:id/personal-info"
-                  render={props => <PersonalInfo data={this.props.data} back={false}/>}
+                  render={(props) => (
+                    <PersonalInfo data={this.state.employee} back={false} />
+                  )}
                 />
                 <Route
                   exact
-                  path="/employee/:id/education"
-                  render={props => <Education data={this.props.data} back={false}/>}
+                  path="/employee/:id/bank-account"
+                  render={(props) => (
+                    <Education data={this.state.employee} back={false} />
+                  )}
                 />
-                <Route
-                  exact
-                  path="/employee/:id/family-info"
-                  render={props => <FamilyInfo data={this.props.data} back={false}/>}
-                />
+                
                 <Route
                   exact
                   path="/employee/:id/work-experience"
-                  render={props => <WorkExperience data={this.props.data} back={false}/>}
+                  render={(props) => (
+                    <WorkExperience data={this.state.employee} back={false} />
+                  )}
                 />
                 <Route
                   exact
                   path="/employee/:id/leave-application-emp"
-                  render={props => <LeaveApplicationEmp data={this.props.data} />}
-                />
-               
-                {/* <Route
-                  exact
-                  path="/employee"
-                  render={() => (
-                    <Redirect
-                      to={
-                        "/employee/" +
-                        this.props.data["_id"] +
-                        "/personal-info"
-                      }
-                    />
+                  render={(props) => (
+                    <LeaveApplicationEmp data={this.state.employee} />
                   )}
-                /> */}
-                <Route
-                  render={
-                    () => <NotFound404/>
-                    // <Redirect to={"/employee/"+ this.props.data["_id"]+"/personal-info"} />
-                  }
                 />
+                {/* <Route
+                  render={
+                    () => 
+                     <Redirect to={"/employee/"+ this.state.employee["EmployeeId"]+"/personal-info"} />
+                  }
+                /> */}
               </Switch>
             </div>
           </div>
         </div>
-      </Router>
+      </Router>}
+     </>
     );
   }
 }

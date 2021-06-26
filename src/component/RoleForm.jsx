@@ -17,7 +17,7 @@ export const RoleForm = (props) => {
 
   const [userData, setUserData] = useState({
     Username: "",
-    Password: '',
+    Password: '', 
     Role: 'regular-employee'
   })
   const  handleUserDataChange = (e) => {
@@ -33,7 +33,6 @@ export const RoleForm = (props) => {
   useEffect(() => {
     axios
       .get("http://localhost:3002/departments")
-
       .then((res) => {
         setDeps(res.data);
         setFormData({ ...formData, DepartmentId: res.data[0].DepartmentId });

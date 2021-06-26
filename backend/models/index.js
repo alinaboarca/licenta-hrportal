@@ -5,6 +5,7 @@ const ProjectsTable = sequelize.import('./projects.js');
 const ProjectsHistory = sequelize.import('./projectHistory.js');
 const DepartmentsTable = sequelize.import('./departments.js');
 const BankAccountTable = sequelize.import('./bankAccount.js');
+const LeaveApplicationTable =  sequelize.import('./leaveApplication.js');
 
 
 //useri si angajati
@@ -16,9 +17,14 @@ EmoloyeesTable.belongsTo(UsersTable, { foreignKey: 'UserId', onDelete: 'cascade'
 EmoloyeesTable.hasOne(BankAccountTable, { foreignKey: 'EmployeeId', onDelete: 'cascade', onUpdate: 'cascade' });
 BankAccountTable.belongsTo(EmoloyeesTable, { foreignKey: 'EmployeeId', onDelete: 'cascade', onUpdate: 'cascade' });
 
-//useri si 
+//useri si departmente
 DepartmentsTable.hasMany(EmoloyeesTable, { foreignKey: 'DepartmentId', onDelete: 'cascade', onUpdate: 'cascade' });
 EmoloyeesTable.belongsTo(DepartmentsTable, { foreignKey: 'DepartmentId', onDelete: 'cascade', onUpdate: 'cascade' });
+
+//angajati si cereri
+EmoloyeesTable.hasMany(LeaveApplicationTable, { foreignKey: 'EmployeeId', onDelete: 'cascade', onUpdate: 'cascade' });
+LeaveApplicationTable.belongsTo(EmoloyeesTable, { foreignKey: 'EmployeeId', onDelete: 'cascade', onUpdate: 'cascade' });
+
 
 module.exports = {
     sequelize,
@@ -27,5 +33,6 @@ module.exports = {
     ProjectsTable,
     ProjectsHistory,
     DepartmentsTable,
-    BankAccountTable
+    BankAccountTable,
+    LeaveApplicationTable
 }

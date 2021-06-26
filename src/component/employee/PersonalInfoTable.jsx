@@ -23,100 +23,51 @@ const override = css`
 class PersonalInfoTable extends Component {
   state = {
     personalInfoData: [],
-    loading: true,
+    loading: false,
 
     columnDefs: [
       {
         headerName: "First Name",
         field: "FirstName",
         sortable: true,
+         width: 250,
         // filter: true ,
-        width: 110,
       },
-      {
-        headerName: "Middle Name",
-        field: "MiddleName",
-        sortable: true,
-        // filter: true ,
-        width: 130,
-      },
+   
       {
         headerName: "Last Name",
         field: "LastName",
         sortable: true,
-        // filter: true ,
-        // width: 150,
-      },
-      {
-        headerName: "Gender",
-        field: "Gender",
-        sortable: true,
-        width: 90,
-
-        // filter: true ,
-        // width: 150,
-      },
-      {
-        headerName: "Contact No",
-        field: "ContactNo",
-        sortable: true,
-        // filter: true ,
-        // width: 150,
+        width: 250,
       },
       {
         headerName: "Email",
         field: "Email",
         sortable: true,
-        // filter: true ,
-        // width: 150,
+        width: 250,
       },
       {
-        headerName: "PANcard No",
-        field: "PANcardNo",
+        headerName: "Phone Number",
+        field: "Phone",
         sortable: true,
-        // filter: true ,
-        // width: 150,
-      },
-
-      {
-        headerName: "DOB",
-        field: "DOB",
-        sortable: true,
-        filter: true,
-        type: ["dateColumn"],
-        filter: "agDateColumnFilter"
+        width: 250,
       },
       {
-        headerName: "Hobbies",
-        field: "Hobbies",
+        headerName: "Salary",
+        field: "Salary",
         sortable: true,
-        // filter: true ,
-        // width: 150,
-      },
-      {
-        headerName: "Present Address",
-        field: "PresentAddress",
-        sortable: true,
-        // filter: true ,
-        width: 150,
+        width: 250,
       },
       {
         headerName: "",
         field: "edit",
         filter: false,
         width: 30,
-        // cellRenderer:this.ageCellRendererFunc,
-        // cellRendererFramework: function(params) {
-        //   return <button OnClick={console.log("pa",params)}>Test</button>;
-        // },
         cellRendererFramework: this.renderEditButton.bind(this),
-
-
       },
 
 
     ],
-    rowData: [],
     defaultColDef: {
       resizable: true,
       width: 120,
@@ -129,81 +80,27 @@ class PersonalInfoTable extends Component {
   };
   personalInfoObj = [];
   rowDataT = [];
-  loadPersonalInfoData = () => {
-    axios
-      .get("https://employee-management-fk-api.herokuapp.com/api/personal-info/" + this.props.data["_id"], {
-        headers: {
-          authorization: localStorage.getItem("token") || ""
-        }
-      })
-      .then(response => {
-        this.personalInfoObj = response.data;
-        console.log("response", response.data);
-        this.setState({ personalInfoData: response.data });
-        this.setState({ loading: false });
-        this.rowDataT = [];
-        console.log("personalInfoObj", this.personalInfoObj)
-        // this.personalInfoObj.map(data => {
-        let data = this.personalInfoObj;
-        let temp = {
-          data,
-          FirstName: data["FirstName"] || "Not Avaiable",
-          MiddleName: data["MiddleName"] || "Not Avaiable",
-          LastName: data["LastName"] || "Not Avaiable",
-          Gender: data["Gender"] || "Not Avaiable",
-          ContactNo: data["ContactNo"] || "Not Avaiable",
-          Email: data["Email"] || "Not Avaiable",
-          PANcardNo: data["PANcardNo"] || "Not Avaiable",
-          DOB: data["DOB"].slice(0, 10) || "Not Avaiable",
-          Hobbies: data["Hobbies"] || "Not Avaiable",
-          PresentAddress: data["PresentAddress"] || "Not Avaiable",
-
-        };
-
-        this.rowDataT.push(temp);
-        // });
-        this.setState({ rowData: this.rowDataT });
-        // console.log("rowData",this.state.rowData)
-
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
-
-  onPersonalInfoDelete = e => {
-    console.log(e);
-    if (window.confirm("Are you sure to delete this record? ") == true) {
-      axios
-        .delete("https://employee-management-fk-api.herokuapp.com/api/personalInfo/" + e, {
-          headers: {
-            authorization: localStorage.getItem("token") || ""
-          }
-        })
-        .then(res => {
-          this.componentDidMount();
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
-  };
   componentDidMount() {
-    this.loadPersonalInfoData();
+    let x = [];
+    axios.get('http://localhost:3002/employees/'+this.props.id).then(res => {
+      x.push(res.data);
+      this.setState({personalInfoData: x});
+    })
   }
+
   renderEditButton(params) {
     console.log(params);
     if (this.props.back) { return <React.Fragment /> }
     return <FontAwesomeIcon
       icon={faEdit}
-      onClick={() => this.props.onEditPersonalInfo(params.data.data)}
+      onClick={() => this.props.onEditPersonalInfo(params.data)}
     />;
   }
 
   render() {
     return (
       <div id="table-outer-div-scroll">
-        <h2 id="role-title">Employee Personal Details {this.props.back ? "of " + this.props.data["FirstName"] + " " + this.props.data["LastName"] : ""}</h2>
+        <h2 id="role-title">Employee Personal Details {this.state.personalInfoData[0] ? "of " + this.state.personalInfoData[0]["FirstName"] + " " + this.state.personalInfoData[0]["LastName"] : ""}</h2>
         {/* 
         <Button
           variant="primary"
@@ -240,7 +137,7 @@ class PersonalInfoTable extends Component {
               columnDefs={this.state.columnDefs}
               defaultColDef={this.state.defaultColDef}
               columnTypes={this.state.columnTypes}
-              rowData={this.state.rowData}
+              rowData={this.state.personalInfoData}
               // floatingFilter={true}
               // onGridReady={this.onGridReady}
               pagination={true}

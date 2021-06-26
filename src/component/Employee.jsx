@@ -78,12 +78,6 @@ class Employee extends Component {
             </React.Fragment>
           }
         />
-
-        {/* <Route
-                   exact
-                   path="/hr/employee/info"
-                   render={props => <EmployeeInfo data={this.state.EmpInfo} onBack={this.handleBack}/>}
-                 /> */}
         <Route
           exact
           path="/hr/employee/info/personal-info"

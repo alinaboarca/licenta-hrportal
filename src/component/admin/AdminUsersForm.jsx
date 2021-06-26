@@ -18,7 +18,7 @@ export const AdminUsersForm = (props) => {
     console.log(formData);
 
     Axios
-      .post(`http://localhost:3000/users/`, formData)
+      .post(`http://localhost:3002/users/`, formData)
 
       .then((res) => {
         console.log(res.data);

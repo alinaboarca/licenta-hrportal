@@ -29,36 +29,26 @@ class EducationTable extends Component {
     columnDefs: [
 
       {
-        headerName: "School/University",
-        field: "SchoolUniversity",
+        headerName: "Bank Name",
+        field: "BankName",
         sortable: true,
         // width: 150,
         // filter: true ,
       },
       {
-        headerName: "Degree",
-        field: "Degree",
+        headerName: "IBAN",
+        field: "IBAN",
         sortable: true,
         // width: 150,
         // filter: true ,
       },
       {
-        headerName: "Grade",
-        field: "Grade",
+        headerName: "SwiftCode",
+        field: "SwiftCode",
         sortable: true,
         // width: 150,
         // filter: true ,
       },
-      {
-        headerName: "Passing Of Year",
-        field: "PassingOfYear",
-        sortable: true,
-        type: ["dateColumn"],
-        filter: "agDateColumnFilter",
-        // width: 150,
-        // filter: true ,
-      },
-
 
       {
         headerName: "",
@@ -94,46 +84,23 @@ class EducationTable extends Component {
 
   loadEducationData = () => {
     axios
-      .get("https://employee-management-fk-api.herokuapp.com/api/education/" + this.props.data["_id"], {
-        headers: {
-          authorization: localStorage.getItem("token") || ""
-        }
-      })
+      .get("http://localhost:3002/account/" + this.props.data["EmployeeId"])
       .then(response => {
-        this.educationObj = response.data;
-        console.log("response", response.data);
+       
         this.setState({ educationData: response.data });
         this.setState({ loading: false });
-        this.rowDataT = [];
-        // let data=this.educationObj.education["0"];
-        this.educationObj.education.map(data => {
-          let temp = {
-            data,
-            SchoolUniversity: data["SchoolUniversity"],
-            Degree: data["Degree"],
-            Grade: data["Grade"],
-            PassingOfYear: data["PassingOfYear"],
-
-          };
-
-          this.rowDataT.push(temp);
-        });
-        this.setState({ rowData: this.rowDataT });
+        
       })
       .catch(error => {
         console.log(error);
       });
   };
 
-  onEducationDelete = (e1, e2) => {
-    console.log(e1, e2);
+  onEducationDelete = (e1) => {
+    
     if (window.confirm("Are you sure to delete this record? ") == true) {
       axios
-        .delete("https://employee-management-fk-api.herokuapp.com/api/education/" + e1 + "/" + e2, {
-          headers: {
-            authorization: localStorage.getItem("token") || ""
-          }
-        })
+        .delete("http://localhost:3002/account/" + e1)
         .then(res => {
           this.componentDidMount();
         })
@@ -152,7 +119,7 @@ class EducationTable extends Component {
       <FontAwesomeIcon
         icon={faTrash}
         onClick={() =>
-          this.onEducationDelete(this.props.data["_id"], params.data.data["_id"])
+          this.onEducationDelete(params.data["AccountId"])
         }
       />
     );
@@ -163,7 +130,7 @@ class EducationTable extends Component {
     return (
       <FontAwesomeIcon
         icon={faEdit}
-        onClick={() => this.props.onEditEducation(params.data.data)}
+        onClick={() => this.props.onEditEducation(params.data)}
       />
     );
   }
@@ -171,7 +138,7 @@ class EducationTable extends Component {
   render() {
     return (
       <div id="table-outer-div-scroll">
-        <h2 id="role-title">Employee Education Details {this.props.back ? "of " + this.props.data["FirstName"] + " " + this.props.data["LastName"] : ""}</h2>
+        <h2 id="role-title">Bank Account Details {this.props.back ? "of " + this.props.data["FirstName"] + " " + this.props.data["LastName"] : ""}</h2>
 
         {this.props.back ? (<Link to="/hr/employee">
           <Button
@@ -208,7 +175,7 @@ class EducationTable extends Component {
               columnDefs={this.state.columnDefs}
               defaultColDef={this.state.defaultColDef}
               columnTypes={this.state.columnTypes}
-              rowData={this.state.rowData}
+              rowData={this.state.educationData}
               // floatingFilter={true}
               // onGridReady={this.onGridReady}
               pagination={true}

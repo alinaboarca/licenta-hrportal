@@ -9,6 +9,16 @@ const getEmployees  = async (req, res) => {
     }
 };
 
+const getEmployeeById = async (req, res) => {
+    try {
+        Employees.findOne({where: {EmployeeId: req.params.id}}).then(result => 
+            res.status(200).send(result ));
+    } catch (err) {
+        return res.send(err);
+    }
+};
+
+
 const createEmployee = async (req, res) => {
     console.log(req.body);
 
@@ -47,6 +57,15 @@ const updateEmployee = async (req, res) => {
 }
 
 
+const getEmpByUserId = async (req,res) => {
+    try {
+        Employees.findOne({where: {UserId: req.params.id}}).then(result => 
+            res.status(200).send(result ));
+    } catch (err) {
+        return res.send(err);
+    }
+}
+
 const deleteEmployee = async (req, res) => {
     console.log(req.params.id);
     Employees.destroy({ where: { EmployeeId: req.params.id } }).then(result => res.status(200).send({msg: 'success'}));
@@ -55,7 +74,9 @@ module.exports = {
     updateEmployee,
     createEmployee,
     getEmployees,
-    deleteEmployee
+    deleteEmployee,
+    getEmployeeById,
+    getEmpByUserId
     
 
 }

@@ -5,75 +5,12 @@ import { Form, Button, Col, Row } from "react-bootstrap";
 
 class PersonalInfoFormEdit extends Component {
   state = {
-    // status: '',
-    // portalsInfo:[],
-    // PersonalInfoTitleData:this.props.editData["PersonalInfoTitle"],
-    // PersonalInfoURLData:this.props.editData["PersonalInfoURL"],
-    // PersonalInfoDescriptionData:this.props.editData["PersonalInfoDesc"],
-    // EstimatedTimeData:this.props.editData["EstimatedTime"],
-    // RemarkData:this.props.editData["Remark"],
-    GenderData: this.props.editData["Gender"],
-
-    EmailData: this.props.editData["Email"],
-    FirstNameData: this.props.editData["FirstName"],
-    MiddleNameData: this.props.editData["MiddleName"],
-    LastNameData: this.props.editData["LastName"],
-    DOBData: this.props.editData["DOB"].slice(0, 10),
-    ContactNoData: this.props.editData["ContactNo"],
-    EmergencyContactNoData: this.props.editData["EmergencyContactNo"] || "",
-    PANcardNoData: this.props.editData["PANcardNo"] || "",
-    HobbiesData: this.props.editData["Hobbies"] || "",
-    PresentAddressData: this.props.editData["PresentAddress"] || "",
-    PermanetAddressData: this.props.editData["PermanetAddress"] || ""
-
-    // value={this.state.PersonalInfoTitleData}
-    // onChange={value => this.onPersonalInfoTitleDataChange(value)}
-  };
-  onEmailDataChange(e) {
-    this.setState({ EmailData: e.target.value });
-  }
-
-  onFirstNameDataChange(e) {
-    this.setState({ FirstNameData: e.target.value });
-  }
-  onMiddleNameDataChange(e) {
-    this.setState({ MiddleNameData: e.target.value });
-  }
-  onLastNameDataChange(e) {
-    this.setState({ LastNameData: e.target.value });
-  }
-  onContactNoDataChange(e) {
-    this.setState({ ContactNoData: e.target.value });
-  }
-  onPANcardNoDataChange(e) {
-    this.setState({ PANcardNoData: e.target.value });
-  }
-  onEmergencyContactNoDataChange(e) {
-    this.setState({ EmergencyContactNoData: e.target.value });
-  }
-  onHobbiesDataChange(e) {
-    this.setState({ HobbiesData: e.target.value });
-  }
-  onPresentAddressDataChange(e) {
-    this.setState({ PresentAddressData: e.target.value });
-  }
-  onPresentAddressDataChange(e) {
-    this.setState({ PresentAddressData: e.target.value });
-  }
-  onPermanetAddressDataChange(e) {
-    this.setState({ PermanetAddressData: e.target.value });
-  }
-
-  onGenderChange = e => {
-    this.setState({ GenderData: e.target.value });
-    this.props.onGenderChange(e);
-  };
-  onDOBDataChange = e => {
-    console.log(e.target.value);
-    this.setState({ DOBData: e.target.value });
+    ...this.props.editData
   };
 
-  componentWillMount() {}   
+  componentWillMount() {
+    console.log(this.state)
+  }   
   render() {
     return (
       <React.Fragment>
