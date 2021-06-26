@@ -11,7 +11,7 @@ const getAllApplications  = async (req, res) => {
 
 const getAllApplicationsForOneUser = async (req, res) => {
     try {
-        LeaveApplication.findAll({where: {LeaveApplicationId: req.params.id}}).then(result => 
+        LeaveApplication.findAll({where: {EmployeeId: req.params.id}}).then(result => 
             res.status(200).send(result ));
     } catch (err) {
         return res.send(err);
@@ -47,7 +47,7 @@ const updateApplication = async (req, res) => {
             NumberOfHours: req.body.NumberOfHours,
             Status: req.body.Status,
             EmployeeId: req.body.EmployeeId
-    }, { where: { EmployeeId: req.params.id } }).then(result => res.status(200).send(result));
+    }, { where: { LeaveApplicationId: req.params.id } }).then(result => res.status(200).send(result));
 }
 
 

@@ -26,34 +26,32 @@ class LeaveApplicationEmpTable extends Component {
     columnDefs: [
 
       {
-        headerName: "Leave type",
-        field: "Leavetype",
+        headerName: "Start Date",
+        field: "StartDate",
         sortable: true,
         // width: 150,
         // filter: true ,
       },
 
       {
-        headerName: "FromDate",
-        field: "FromDate",
+        headerName: "End Date",
+        field: "EndDate",
         sortable: true,
-        type: ["dateColumn"],
         filter: "agDateColumnFilter",
         // width: 150,
         // filter: true ,
       },
+     
       {
-        headerName: "ToDate",
-        field: "ToDate",
+        headerName: "Reason",
+        field: "Reason",
         sortable: true,
-        type: ["dateColumn"],
-        filter: "agDateColumnFilter",
         // width: 150,
         // filter: true ,
       },
       {
-        headerName: "Reasonforleave",
-        field: "Reasonforleave",
+        headerName: "Number Of Hours Per Day",
+        field: "NumberOfHours",
         sortable: true,
         // width: 150,
         // filter: true ,
@@ -65,8 +63,6 @@ class LeaveApplicationEmpTable extends Component {
         // width: 150,
         // filter: true ,
       },
-
-
       {
         headerName: "",
         field: "edit",
@@ -82,8 +78,6 @@ class LeaveApplicationEmpTable extends Component {
         cellRendererFramework: this.renderButton.bind(this)
       }
     ],
-    rowData: [],
-
     defaultColDef: {
       resizable: true,
       width: 235,
@@ -102,51 +96,24 @@ class LeaveApplicationEmpTable extends Component {
   loadLeaveApplicationEmpData = () => {
     axios
       .get(
-        "https://employee-management-fk-api.herokuapp.com/api/leave-application-emp/" +
-        this.props.data["_id"], {
-        headers: {
-          authorization: localStorage.getItem("token") || ""
-        }
-      }
-      )
+        "http://localhost:3002/leave/employee/" +
+        this.props.data["EmployeeId"])
       .then(response => {
-        this.leaveApplicationEmpObj = response.data;
         console.log("response", response.data);
         this.setState({ leaveApplicationEmpData: response.data });
         this.setState({ loading: false });
-        this.rowDataT = [];
-        // let data=this.educationObj.education["0"];
-        this.leaveApplicationEmpObj.leaveApplication.map(data => {
-          let temp = {
-            data,
-            Leavetype: data["Leavetype"],
-            FromDate: data["FromDate"].slice(0, 10),
-            ToDate: data["ToDate"].slice(0, 10),
-            Reasonforleave: data["Reasonforleave"],
-            Status: this.status(data["Status"]),
-
-          };
-
-          this.rowDataT.push(temp);
-        });
-        this.setState({ rowData: this.rowDataT });
       })
       .catch(error => {
         console.log(error);
       });
   };
 
-  onLeaveApplicationEmpDelete = (e1, e2) => {
-    console.log(e1, e2);
-    if (window.confirm("Are you sure to delete this record? ") == true) {
+  onLeaveApplicationEmpDelete = (e1) => {
+    console.log(e1);
+    if (window.confirm("Are you sure to delete this record? ") === true) {
       axios
         .delete(
-          "https://employee-management-fk-api.herokuapp.com/api/leave-application-emp/" + e1 + "/" + e2, {
-          headers: {
-            authorization: localStorage.getItem("token") || ""
-          }
-        }
-        )
+          "http://localhost:3002/leave/" + e1)
         .then(res => {
           this.componentDidMount();
         })
@@ -160,12 +127,12 @@ class LeaveApplicationEmpTable extends Component {
   }
 
   renderButton(params) {
-    console.log(params);
+    console.log('params',params);
     return (
       <FontAwesomeIcon
         icon={faTrash}
         onClick={() =>
-          this.onLeaveApplicationEmpDelete(this.props.data["_id"], params.data.data["_id"])
+          this.onLeaveApplicationEmpDelete(params.data["LeaveApplicationId"])
         }
       />
     );
@@ -175,24 +142,14 @@ class LeaveApplicationEmpTable extends Component {
     return (
       <FontAwesomeIcon
         icon={faEdit}
-        onClick={() => this.onEdit(params.data.data)}
+        onClick={() => this.onEdit(params.data)}
       />
     );
   }
 
-  status = s => {
-    if (s == 1) {
-      return "Pending";
-    }
-    if (s == 2) {
-      return "Approved";
-    }
-    if (s == 3) {
-      return "Rejected";
-    }
-  };
+
   onEdit = data => {
-    if (data["Status"] == 1) {
+    if (data["Status"] === "Pending") {
       this.props.onEditLeaveApplicationEmp(data);
     } else {
       window.alert(
@@ -204,7 +161,7 @@ class LeaveApplicationEmpTable extends Component {
   render() {
     return (
       <div id="table-outer-div-scroll">
-        <h2 id="role-title">Leave Application</h2>
+        <h2 id="role-title">Leave Applications</h2>
 
         <Button
           variant="primary"
@@ -233,7 +190,7 @@ class LeaveApplicationEmpTable extends Component {
               columnDefs={this.state.columnDefs}
               defaultColDef={this.state.defaultColDef}
               columnTypes={this.state.columnTypes}
-              rowData={this.state.rowData}
+              rowData={this.state.leaveApplicationEmpData}
               // floatingFilter={true}
               // onGridReady={this.onGridReady}
               pagination={true}

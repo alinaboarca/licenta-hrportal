@@ -1,134 +1,97 @@
-import React, { Component } from "react";
-// import "./LeaveApplicationEmpFormEdit.css";
-// import { Form,Button } from "react-bootstrap";
+import React, { Component, useState } from "react";
+import "./LeaveApplicationEmpForm.css";
 import { Form, Button, Col, Row } from "react-bootstrap";
 import axios from "axios";
 
-class LeaveApplicationEmpForm extends Component {
-  state = {
-    // LeaveApplicationEmpData: this.props.editData["LeaveApplicationEmpName"],
-
-    // LeavetypeData: this.props.editData["Leavetype"],
-    FromDateData: this.props.editData["FromDate"].slice(0, 10),
-    ToDateData: this.props.editData["ToDate"].slice(0, 10),
-    ReasonforleaveData: this.props.editData["Reasonforleave"],
-    // StatusData: this.props.editData["Status"],
-
-    // value={this.state.CompanyNameData}
-    // onChange={value => this.onCompanyNameDataChange(value)}
+export const LeaveApplicationEmpFormtFormEdit = (props) => {
+  const [formData, setFormData] = useState({
+   ...props.editData
+  });
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-//   onLeavetypeDataChange(e) {
-//     this.setState({ CLeavetypeData: e.target.value });
-//   }
-  
-  onFromDateDataChange(e) {
-    this.setState({ FromDateData: e.target.value });
-  }
-  onToDateDataChange(e) {
-    this.setState({ ToDateData: e.target.value });
-  }
-  onReasonforleaveDataChange(e) {
-    this.setState({ ReasonforleaveData: e.target.value });
-  }
-//   onStatusDataChange(e) {
-//     this.setState({StatusData: e.target.value });
-//   }
+  const handleProjectSubmit = (event) => {
+    console.log("hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+    event.preventDefault();
+    console.log(formData);
+    axios
+      .put("http://localhost:3002/leave/"+props.editData.LeaveApplicationId, formData)
 
-  componentWillMount() {
-  }
-
-  render() {
-    return (
-      <div>
-        <h2 id="role-form-title">Edit LeaveApplicationEmp Details</h2>
-
-        <div id="role-form-outer-div">
-          <Form
-            id="form"
-            onSubmit={e =>
-              this.props.onLeaveApplicationEmpEditUpdate(this.props.editData, e)
-            }
-          >
-           <Form.Group as={Row} >
-    <Form.Label column sm={2}>
-    Leave Type
-    </Form.Label>
-    <Col sm={10} className="form-input">
-    <Form.Control as="select"  required>
-    <option value="" disabled selected>
-                    Select your option
-                  </option>
-    <option value="Sick Leave"  selected={this.props.editData["Leavetype"] == "Sick Leave"}>Sick Leave</option>
-    <option value="Casual Leave"  selected={this.props.editData["Leavetype"] == "Casual Leave"}>Casual Leave</option>
-    <option value="Privilege Leave"  selected={this.props.editData["Leavetype"] == "Privilege Leave"}>Privilege Leave</option>
-          </Form.Control>
-    </Col>
-    </Form.Group>
-    <Form.Group as={Row}>
-              <Form.Label column sm={2}>
+      .then((res) => {
+        console.log(res.data);
+        props.onFormEditClose();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  return (
+    <div>
+      <h2 id="role-form-title">Add LeaveApplicationEmp Details</h2>
+      <div id="role-form-outer-div">
+        <Form id="form" onSubmit={handleProjectSubmit}>
+          <Form.Group as={Row}>
+            <Form.Label column sm={2}>
+              Leave Type
+            </Form.Label>
+            <Col sm={10} className="form-input">
+              <Form.Control as="select" required onChange={e=> setFormData({...formData,Reason: e.target.value})} value={formData.Reason}>
+                <option value="" disabled selected>
+                  Select your option
+                </option>
+                <option value="Vacantion">Vacantion</option>
+                <option value="TimeOffInLieu">Time off in lieu</option>
+                <option value="Sick">Sickness</option>
+                <option value="Maternal">Maternal</option>
+              </Form.Control>
+            </Col>
+          </Form.Group>
+          <Form.Group as={Row}>
+            <Form.Label column sm={2}>
               FromDate
-              </Form.Label>
-              <Col sm={10} className="form-input">
-                <Form.Control
-                  type="date"
-                  required
-                  value={this.state.FromDateData}
-                  onChange={value => this.onFromDateDataChange(value)}
-                />
-              </Col>
-            </Form.Group>
-            <Form.Group as={Row}>
-              <Form.Label column sm={2}>
+            </Form.Label>
+            <Col sm={10} className="form-input">
+              <Form.Control type="date" required value={formData.StartDate}  name="StartDate" onChange={e => handleChange(e)} />
+            </Col>
+          </Form.Group>
+          <Form.Group as={Row}>
+            <Form.Label column sm={2}>
               ToDate
-              </Form.Label>
-              <Col sm={10} className="form-input">
-                <Form.Control
-                  type="date"
-                  required
-                  value={this.state.ToDateData}
-                  onChange={value => this.onToDateDataChange(value)}
-                />
-              </Col>
-            </Form.Group>
-  <Form.Group as={Row}>
-    <Form.Label column sm={2}>
-    Reason for leave
-    </Form.Label>
-    <Col sm={10}  className="form-input">
-      <Form.Control type="Text" placeholder="Reason for leave" required
-       value={this.state.ReasonforleaveData}
-       onChange={value => this.onReasonforleaveDataChange(value)}/>
-    </Col>
-  </Form.Group>
-   
-  <Form.Group as={Row} >
-    <Form.Label column sm={2}>
-    Leave Status
-    </Form.Label>
-    <Col sm={10} className="form-input">
-    <Form.Control as="select"  required>
-    <option value="1" selected disabled>Pending</option>
-          </Form.Control>
-    </Col>
-    </Form.Group>
+            </Form.Label>
+            <Col sm={10} className="form-input">
+              <Form.Control type="date" name="EndDate" value={formData.EndDate} onChange={e => handleChange(e)} placeholder="ToDate" required />
+            </Col>
+          </Form.Group>
+          <Form.Group as={Row}>
+            <Form.Label column sm={2}>
+            Number of Hours Per Day
+            </Form.Label>
+            <Col sm={10} className="form-input">
+              <Form.Control
+                type="Text"
+                placeholder=" Number of Hours Per Day"
+                name="NumberOfHours"
+                value={formData.NumberOfHours}
+                onChange={e => handleChange(e)}
+                required
+              />
+            </Col>
+          </Form.Group>
 
-            <Form.Group as={Row} id="form-submit-button">
-              <Col sm={{ span: 10, offset: 2 }}>
-                <Button type="submit">Update</Button>
-              </Col>
-            </Form.Group>
-            <Form.Group as={Row} id="form-cancel-button">
-              <Col sm={{ span: 10, offset: 2 }} id="form-cancel-button-inner">
-                <Button type="reset" onClick={this.props.onFormEditClose}>
-                  cancel
-                </Button>
-              </Col>
-            </Form.Group>
-          </Form>
-        </div>
+          <Form.Group as={Row} id="form-submit-button">
+            <Col sm={{ span: 10, offset: 2 }}>
+              <Button type="submit">Submit</Button>
+            </Col>
+          </Form.Group>
+          <Form.Group as={Row} id="form-cancel-button">
+            <Col sm={{ span: 10, offset: 2 }} id="form-cancel-button-inner">
+              <Button type="reset" onClick={props.onFormEditClose}>
+                cancel
+              </Button>
+            </Col>
+          </Form.Group>
+        </Form>
       </div>
-    );
-  }
-}
-
-export default LeaveApplicationEmpForm;
+    </div>
+  );
+};
