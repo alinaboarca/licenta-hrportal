@@ -2,106 +2,70 @@ import React, { Component } from "react";
 import "./DashboardHR.css";
 import { HashRouter as Router, Route, Link } from "react-router-dom";
 import { Switch } from "react-router";
-import { Redirect } from "react-router-dom";
 import Employees from "../Employees.jsx";
 import NavBar from "../NavBar.jsx";
-import Position from "../Departments.jsx";
-import Department from "../Department.jsx";
-import Country from "../Country.jsx";
-import State from "../State.jsx";
-import City from "../City.jsx";
-import Company from "../Company.jsx";
-import Employee from "../Employee.jsx";
 import Salary from "../Salary.jsx";
 import LeaveApplicationHR from "./LeaveApplicationHR.jsx";
 import NotFound404 from "../NotFound404.jsx";
 
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUsers,
-  faChair,
   faBuilding,
- faUser,
-faUserTie,
-faRupeeSign,
-faFileAlt,
-faCity,
-faGlobeAmericas,
-faPlaceOfWorship,
-faArchway,
+  faUserTie,
+  faRupeeSign,
+  faFileAlt,
 } from "@fortawesome/free-solid-svg-icons";
+import Axios from "axios";
+import Departments from "../Departments";
 
-function RoleHRF() {
-  return <Employees />;
-}
-
-
-function PositionF() {
-  return <Position />;
-}
 function DepartmentF() {
-  return <Department />;
+  return <Departments />;
 }
-function CountryF() {
-  return <Country />;
-}
-function StateF() {
-  return <State />;
-}
-function CityF() {
-  return <City />;
-}
-function CompanyF() {
-  return <Company />;
-}
+
 function EmployeeF() {
-  return <Employee />;
+  return <Employees />;
 }
 function SalaryF() {
   return <Salary />;
 }
-function LeaveApplicationHRF() {
-  return <LeaveApplicationHR />;
-}
-
-// function HRPortalF() {
-//   return <HRPortal />;
-// }
-// function HRProjectBidF() {
-//   return <HRProjectBid />;
-// }
 
 class DashboardHR extends Component {
   state = {
     redirect: true,
-    checked: true 
+    checked: true,
+    employee: {},
   };
-  handleChange=(checked)=> {
+  handleChange = (checked) => {
     console.log("switch");
-    // var sidebarV = this.refs.sidebar;
-    // var sidebarV = React.findDOMNode( this.refs.sidebar);
-    // sidebarV.style.disply="none";
-    
-    if(this.state.checked==true){ 
-       // document.getElementById("sidebar").setAttribute("style", "display:none")
+    if (this.state.checked == true) {
       document.getElementById("sidebar").setAttribute("class", "display-none");
+    } else {
+      document.getElementById("sidebar").setAttribute("class", "display-block");
     }
-    // document.getElementById("sidebar").setAttribute("style", "display:block");
-    else{document.getElementById("sidebar").setAttribute("class", "display-block");}   
     this.setState({ checked });
+  };
+  componentDidMount() {
+    console.log("in hr");
+    Axios.get(
+      "http://localhost:3002/employees/user/" + this.props.data["UserId"]
+    ).then((res) => {
+      console.log(res.data);
+      this.setState({ employee: res.data, loading: false });
+    });
   }
 
   render() {
     return (
       <Router>
-        {/* <Redirect to='/login'  /> */}
-
         <div id="outer-main-div">
           <div id="outer-nav">
-            {/* <NavBar loginInfo={this.props.data} /> */}
-            <NavBar loginInfo={this.props.data} checked={this.state.checked} handleChange={this.handleChange} onLogout={this.props.onLogout}/>
-
+            <NavBar
+              loginInfo={this.state.employee}
+              checked={this.state.checked}
+              handleChange={this.handleChange}
+              onLogout={this.props.onLogout}
+            />
           </div>
 
           <div id="main-non-nav">
@@ -113,147 +77,61 @@ class DashboardHR extends Component {
               </div>
               <ul className="navbar-ul">
                 <li>
-                  <Link to="/hr/employee">
-                    <FontAwesomeIcon icon={faUser} className="sidebar-icon" /> 
-                    User 
-                  </Link> 
+                  <Link to="/hr/employees">
+                    <FontAwesomeIcon icon={faUsers} className="sidebar-icon" />
+                    Employees
+                  </Link>
                 </li>
                 <li>
                   <Link to="/hr/salary">
-                    <FontAwesomeIcon icon={faRupeeSign} className="sidebar-icon" /> 
-                    Salary 
-                  </Link> 
+                    <FontAwesomeIcon
+                      icon={faRupeeSign}
+                      className="sidebar-icon"
+                    />
+                    Salary
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/hr/leave-application-hr">
-                    <FontAwesomeIcon icon={faFileAlt} className="sidebar-icon" /> 
-                    Leave Application 
-                  </Link> 
+                  <Link to="/hr/leave-application">
+                    <FontAwesomeIcon
+                      icon={faFileAlt}
+                      className="sidebar-icon"
+                    />
+                    Leave Application
+                  </Link>
                 </li>
+
                 <li>
-                  <Link to="/hr/company">
-                    <FontAwesomeIcon icon={faCity} className="sidebar-icon" /> 
-                    company 
-                  </Link> 
-                </li>
-                <li>
-                  <Link to="/hr/role">
-                    <FontAwesomeIcon icon={faUsers} className="sidebar-icon" /> 
-                    Role 
-                  </Link> 
-                </li>
-                <li>
-                  <Link to="/hr/position">
-                    <FontAwesomeIcon icon={faChair} className="sidebar-icon" /> 
-                    Position 
-                  </Link> 
-                </li>
-                <li>
-                  <Link to="/hr/department">
+                  <Link to="/hr/departments">
                     <FontAwesomeIcon
                       icon={faBuilding}
                       className="sidebar-icon"
-                    /> 
-                    Department 
-                  </Link> 
+                    />
+                    Departments
+                  </Link>
                 </li>
-                <li>
-                  <Link to="/hr/country">
-                    <FontAwesomeIcon icon={faGlobeAmericas} className="sidebar-icon" /> 
-                    Country 
-                  </Link> 
-                </li>
-                <li>
-                  <Link to="/hr/state">
-                    <FontAwesomeIcon icon={faPlaceOfWorship} className="sidebar-icon" /> 
-                    State 
-                  </Link> 
-                </li>
-                <li>
-                  <Link to="/hr/city">
-                    <FontAwesomeIcon icon={faArchway} className="sidebar-icon" /> 
-                    City 
-                  </Link> 
-                </li>
-                <li>
-                 
-                </li>
-                {/* <li> <a href=""><FontAwesomeIcon icon={faChair} className="sidebar-icon"/> Position</a>   </li> */}
-                {/* <li> <a href=""><FontAwesomeIcon icon={faBuilding} className="sidebar-icon"/> Department</a>   </li> */}
-                {/* <li> <a href=""><FontAwesomeIcon icon={faDollarSign} className="sidebar-icon"/> Project Bidding</a>   </li> */}
-                {/* <li> <a href=""><FontAwesomeIcon icon={faTasks} className="sidebar-icon"/> Portal Master</a>   </li> */}
               </ul>
             </div>
-            {/* <div id="sidebar-top-content" /> */}
             <div id="main-area">
               <div id="sidebar-top-content" />
-              {/* //table */}
-              {/* <RoleHR/> */}
               <Switch>
                 <Route
-                  path="/hr/employee"
+                  path="/hr/employees"
                   // exact
                   component={EmployeeF}
                 />
+                <Route path="/hr/salary" exact component={SalaryF} />
+
+                <Route path="/hr/departments" exact component={DepartmentF} />
                 <Route
-                  path="/hr/salary"
                   exact
-                  component={SalaryF}
+                  path="/hr/leave-application"
+                  render={(props) => (
+                    <LeaveApplicationHR data={this.state.employee} />
+                  )}
                 />
-                <Route
-                  path="/hr/company"
-                  exact
-                  component={CompanyF}
-                />
-                <Route path="/hr/role" component={RoleHRF} />
-                {/* <Route path="/hr/role/form" exact component={RoleFormF} /> */}
-                <Route
-                  path="/hr/position"
-                  exact
-                  component={PositionF}
-                />
-                <Route
-                  path="/hr/department"
-                  exact
-                  component={DepartmentF}
-                />
-                <Route
-                  path="/hr/country"
-                  exact
-                  component={CountryF}
-                />
-                <Route
-                  path="/hr/state"
-                  exact
-                  component={StateF}
-                />
-                <Route
-                  path="/hr/city"
-                  exact
-                  component={CityF}
-                />
-                <Route
-                  path="/hr/leave-application-hr"
-                  exact
-                  component={LeaveApplicationHRF}
-                />
-                 {/* <Route
-                  path="/hr/portal-master"
-                  exact
-                  component={HRPortalF}
-                /> */}
-                 {/* <Route
-                  path="/hr/project-bid"
-                  exact
-                  component={HRProjectBidF}
-                /> */}
-                {/* <Route
-                  exact
-                  path="/hr"
-                  render={() => <Redirect to="hr/employee" />}
-                /> */}
-                <Route render={() => <NotFound404/>} />
-                
+
+                <Route render={() => <NotFound404 />} />
               </Switch>
             </div>
           </div>

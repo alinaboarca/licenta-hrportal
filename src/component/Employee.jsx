@@ -27,29 +27,15 @@ class Employee extends Component {
     EmpInfoBool: false,
 
   };
-  // redirectF=()=>{
-  // //  if(this.state.EmpInfo==true){
-  //   this.setState({EmpInfo:false})
-  //   console.log("rrrrrrrrrrrrrrrrrrrrrrrrrrrr");
-  //   return <Redirect to="hr/employee/info" />
-  // //  }
-  // }
-
   render() {
-    // if (this.state.EmpInfo) {
-    //   this.setState({EmpInfo:false});
-    //   return <Redirect to="hr/employee/info" />
-    // }
 
     return (
       <Router>
         <Route
           exact
-          path="/hr/employee"
+          path="/hr/employees"
           render={props =>
             <React.Fragment>
-              {/* {this.redirectF} */}
-              {/* {this.state.EmpInfo?this.redirectF:<React.Fragment />} */}
               {this.state.table ? (
                 this.state.editForm ? (
                   <EmployeeFormEdit

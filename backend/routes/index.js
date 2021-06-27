@@ -20,6 +20,7 @@ router.put('/employees/:id',empController.updateEmployee);
 router.delete('/employees/:id',empController.deleteEmployee);
 router.get('/employees/:id', empController.getEmployeeById)
 router.get('/employees/user/:id', empController.getEmpByUserId)
+router.get('/emp/salary', empController.getEmpsAndBankAccounts)
 
 //bankaccount
 router.post("/account",bankAccountController.createAcc);

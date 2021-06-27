@@ -1,4 +1,6 @@
 const Employees = require('../models').EmoloyeesTable;
+const BankAccount = require('../models').BankAccountTable;
+
 
 const getEmployees  = async (req, res) => {
     try {
@@ -57,6 +59,15 @@ const updateEmployee = async (req, res) => {
 }
 
 
+const getEmpsAndBankAccounts = async (req,res) => {
+    try {
+        Employees.findAll({include: [BankAccount]}).then(result => 
+            res.status(200).send(result ));
+    } catch (err) {
+        return res.send(err);
+    }
+}
+
 const getEmpByUserId = async (req,res) => {
     try {
         Employees.findOne({where: {UserId: req.params.id}}).then(result => 
@@ -76,7 +87,6 @@ module.exports = {
     getEmployees,
     deleteEmployee,
     getEmployeeById,
-    getEmpByUserId
-    
-
+    getEmpByUserId,
+    getEmpsAndBankAccounts
 }

@@ -29,14 +29,20 @@ class AdminSalaryTable extends Component {
 
     columnDefs: [
       {
-        headerName: "Employee Name",
-        field: "EmployeeName",
+        headerName: "First Name",
+        field: "FirstName",
+        sortable: true
+        // filter: true ,
+      },
+      {
+        headerName: "Last Name",
+        field: "LastName",
         sortable: true
         // filter: true ,
       },
       {
         headerName: "Salary",
-        field: "BasicSalary",
+        field: "Salary",
         sortable: true,
         type: "numberColumn",
         filter: 'agNumberColumnFilter'
@@ -44,38 +50,24 @@ class AdminSalaryTable extends Component {
       },
       {
         headerName: "Bank Name",
-        field: "BankName",
+        field: "BankAccount.BankName",
         sortable: true
         // filter: true ,
       },
       {
-        headerName: "Account No",
-        field: "AccountNo",
-        sortable: true
-        // filter: true ,
-      },
-
-      {
-        headerName: "Account Holder Name",
-        field: "AccountHolderName",
-        sortable: true,
-        // width: 117,
-        // filter: true ,
-      },
-      {
-        headerName: "IFSC code",
-        field: "IFSCcode",
-        sortable: true,
-        // width: 117,
-        // filter: true ,
-      },
-      {
-        headerName: "Tax Deduction",
-        field: "TaxDeduction",
+        headerName: "IBAN",
+        field: "BankAccount.IBAN",
         sortable: true
         // filter: true ,
       },
 
+      {
+        headerName: "SwiftCode",
+        field: "BankAccount.SwiftCode",
+        sortable: true,
+        // width: 117,
+        // filter: true ,
+      },   
       {
         headerName: "",
         field: "edit",
@@ -84,17 +76,7 @@ class AdminSalaryTable extends Component {
         cellRendererFramework: this.renderEditButton.bind(this),
       
     
-      },
-      {
-        headerName: "",
-        field: "delete",
-        filter: false ,
-        width: 30,
-        cellRendererFramework: this.renderButton.bind(this),
-      
-    
-      },
-      
+      }
     ],
     rowData: [],
     defaultColDef: {
@@ -114,75 +96,27 @@ class AdminSalaryTable extends Component {
 
   loadSalaryData = () => {
     axios
-      .get("https://employee-management-fk-api.herokuapp.com/api/salary", {
-        headers: {
-          authorization: localStorage.getItem("token") || ""
-        }
-      })
+      .get("http://localhost:3002/emp/salary")
       .then(response => {
-        this.salaryObj = response.data;
-        console.log("response", response.data);
+        console.log(response.data)
         this.setState({ salaryData: response.data });
         this.setState({ loading: false });
-        this.rowDataT = [];
-
-        this.salaryObj.map(data => {
-          let temp = {
-            data,
-            EmployeeName: data["FirstName"]+""+data["MiddleName"]+""+data["LastName"],
-            BasicSalary: data["salary"][0]["BasicSalary"],
-            BankName: data["salary"][0]["BankName"],
-            AccountNo:data["salary"][0]["AccountNo"],
-            AccountHolderName: data["salary"][0]["AccountHolderName"],
-            IFSCcode: data["salary"][0]["IFSCcode"],
-            TaxDeduction:data["salary"][0]["TaxDeduction"],
-            
-          };
-          
-          this.rowDataT.push(temp);
-        });
-        this.setState({ rowData: this.rowDataT });
-
-
-
       })
       .catch(error => {
         console.log(error);
       });
   };
 
-  onSalaryDelete = e => {
-    console.log(e);
-    if (window.confirm("Are you sure to delete this record? ") == true) {
-      axios
-        .delete("https://employee-management-fk-api.herokuapp.com/api/salary/" + e, {
-          headers: {
-            authorization: localStorage.getItem("token") || ""
-          }
-        })
-        .then(res => {
-          this.componentDidMount();
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
-  };
+  
   componentDidMount() {
     this.loadSalaryData();
   }
-  renderButton(params){
-    console.log(params);
-    return <FontAwesomeIcon
-    icon={faTrash}
-    onClick={() => this.onSalaryDelete(params.data.data["_id"])}
-  />;
-  }
+  
   renderEditButton(params){
     console.log(params);
     return <FontAwesomeIcon
     icon={faEdit}
-    onClick={() => this.props.onEditSalary(params.data.data)}
+    onClick={() => this.props.onEditSalary(params.data)}
   />;
   }
 
@@ -191,35 +125,18 @@ class AdminSalaryTable extends Component {
       <div id="table-outer-div-scroll">
         <h2 id="role-title">Salary Details</h2>
 
-        <Button
-          variant="primary"
-          id="add-button"
-          onClick={this.props.onAddSalary}
-        >
-          <FontAwesomeIcon icon={faPlus} id="plus-icon" />
-          Add
-        </Button>
-
         <div id="clear-both" />
 
         {!this.state.loading ? (
           <div
             id="table-div"
             className="ag-theme-balham"
-            //   style={
-            //     {
-            //     height: "500px",
-            //     width: "100%"
-            //   }
-            // }
           >
             <AgGridReact
               columnDefs={this.state.columnDefs}
               defaultColDef={this.state.defaultColDef}
               columnTypes={this.state.columnTypes}
-              rowData={this.state.rowData}
-              // floatingFilter={true}
-              // onGridReady={this.onGridReady}
+              rowData={this.state.salaryData}
               pagination={true}
               paginationPageSize={10}
               getRowHeight={this.state.getRowHeight}

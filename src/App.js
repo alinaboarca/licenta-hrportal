@@ -1,15 +1,12 @@
 import React, { Component } from "react";
 import "./App.css";
 import axios from "axios";
-import jwt from "jsonwebtoken";
 import Login from "./component/Login.jsx";
 import DashboardAdmin from "./component/admin/DashboardAdmin.jsx";
 import DashboardHR from "./component/hr/DashboardHR.jsx";
 import DashboardEmployee from "./component/employee/DashboardEmployee.jsx";
 import { Switch } from "react-router";
-
 import { HashRouter as Router, Route, Redirect } from "react-router-dom";
-import history from "./history.js";
 
 class App extends Component {
   state = {
@@ -41,7 +38,7 @@ class App extends Component {
 
               this.state.data["Role"] === "Hr" ? (
                 // <Dashboard />
-                <Redirect to="/hr" />
+                <Redirect to="/hr/employees" />
               ) : //
               this.state.data["Role"] === "regular-employee" ? (
                 // <Dashboard />
@@ -73,7 +70,7 @@ class App extends Component {
             // exact
             path="/hr"
             render={(props) =>
-              this.state.data["Account"] == 2 ? (
+              this.state.data["Role"] === "Hr" ? (
                 <DashboardHR
                   data={this.state.data}
                   onLogout={this.handleLogout}
