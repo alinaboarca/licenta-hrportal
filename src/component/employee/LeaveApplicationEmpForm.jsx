@@ -7,7 +7,7 @@ export const LeaveApplicationEmpFormtForm = (props) => {
   const [formData, setFormData] = useState({
     StartDate: "",
     EndDate: "",
-    Reason: "",
+    Reason: "Vacantion",
     NumberOfHours: "",
     Status: "Pending",
     EmployeeId: props.data.EmployeeId,
@@ -41,7 +41,7 @@ export const LeaveApplicationEmpFormtForm = (props) => {
             </Form.Label>
             <Col sm={10} className="form-input">
               <Form.Control as="select" required onChange={e=> setFormData({...formData,Reason: e.target.value})}>
-                <option value="" disabled selected>
+                <option value="" disabled>
                   Select your option
                 </option>
                 <option value="Vacantion">Vacantion</option>

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Login.css";
 import Logo from "../img/logo.png";
-import { css } from "@emotion/core";
+import { css } from "@emotion/react";
 // First way to import
 import { ScaleLoader } from "react-spinners";
 const override = css`

@@ -9,7 +9,7 @@ import {
   faInfoCircle
 } from "@fortawesome/free-solid-svg-icons";
 import { RingLoader } from "react-spinners";
-import { css } from "@emotion/core";
+import { css } from "@emotion/react";
 import { Button } from "react-bootstrap";
 
 import { AgGridReact } from "ag-grid-react";

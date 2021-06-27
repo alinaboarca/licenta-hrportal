@@ -8,18 +8,10 @@ module.exports = (sequelize, DataTypes) => {
         "ProjectId": {
             type: DataTypes.UUID,
             primaryKey: true,
-            references: {
-                model: ProjectsTable,
-                key: 'ProjectId'
-              }
         },
         "EmployeeId": {
             type: DataTypes.UUID,
             primaryKey: true,
-            references: {
-                model: EmoloyeesTable,
-                key: 'EmployeeId'
-              }
         }
     });
 }

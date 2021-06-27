@@ -4,7 +4,7 @@ import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { RingLoader } from "react-spinners";
-import { css } from "@emotion/core";
+import { css } from "@emotion/react";
 import { Form, Button, Col, Row } from "react-bootstrap";
 
 import { AgGridReact } from "ag-grid-react";

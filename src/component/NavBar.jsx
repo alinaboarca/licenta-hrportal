@@ -6,6 +6,8 @@ import Switch from "react-switch";
 
 class NavBar extends Component {
   render() {
+    
+      + " " + this.props.loginInfo["LastName"]
     return (
       <div>
         <Navbar
@@ -42,7 +44,9 @@ class NavBar extends Component {
           <Navbar.Collapse id="logout-navbar-nav">
             <Nav className="ml-auto">
               <a onClick={this.props.onClick} className="navbar-right-content">
-                {this.props.loginInfo["FirstName"] + " " + this.props.loginInfo["LastName"]}
+                { this.props.loginInfo["FirstName"] !== null && this.props.loginInfo["FirstName"] !== undefined ? this.props.loginInfo["FirstName"] :"" }
+                { " "}
+                { this.props.loginInfo["LastName"] !== null && this.props.loginInfo["LastName"] !== undefined ? this.props.loginInfo["LastName"] :"" }
               </a>
               <a
                 onClick={this.props.onLogout}

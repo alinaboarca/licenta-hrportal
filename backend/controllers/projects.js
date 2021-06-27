@@ -1,8 +1,34 @@
 const Projects = require('../models').ProjectsTable;
+const Employees = require('../models').EmoloyeesTable;
+const ProjectHistories = require('../models').ProjectsHistory;
 
 const getProjects  = async (req, res) => {
     try {
         Projects.findAll().then(result => 
+            res.status(200).send(result ));
+    } catch (err) {
+        return res.send(err);
+    }
+};
+
+const assignProjectToEmployee = async (req, res) => {
+    try {
+    ProjectHistories.create({
+        EmployeeId: req.body.EmployeeId,
+        ProjectId: req.body.ProjectId
+        }).then(result => 
+            res.status(200).send(result ));
+
+        
+    } catch (err) {
+        return res.send(err);
+    }
+};
+
+const getAllProjectsOfOneEmployee = async (req, res) => {
+    try {
+    ProjectHistories.findAll({ where: { EmployeeId: req.params.id}, include: [Projects]
+        }).then(result => 
             res.status(200).send(result ));
     } catch (err) {
         return res.send(err);
@@ -50,7 +76,9 @@ module.exports = {
     updateProject,
     createProject,
     getProjects,
-    deleteProject
+    deleteProject,
+    assignProjectToEmployee,
+    getAllProjectsOfOneEmployee
     
 
 }

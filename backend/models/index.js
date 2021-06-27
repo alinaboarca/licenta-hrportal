@@ -25,6 +25,11 @@ EmoloyeesTable.belongsTo(DepartmentsTable, { foreignKey: 'DepartmentId', onDelet
 EmoloyeesTable.hasMany(LeaveApplicationTable, { foreignKey: 'EmployeeId', onDelete: 'cascade', onUpdate: 'cascade' });
 LeaveApplicationTable.belongsTo(EmoloyeesTable, { foreignKey: 'EmployeeId', onDelete: 'cascade', onUpdate: 'cascade' });
 
+ProjectsTable.hasMany(ProjectsHistory, { foreignKey: 'ProjectId', onDelete: 'cascade', onUpdate: 'cascade' });
+ProjectsHistory.belongsTo(ProjectsTable, { foreignKey: 'ProjectId', onDelete: 'cascade', onUpdate: 'cascade' })
+
+EmoloyeesTable.hasMany(ProjectsHistory, { foreignKey: 'EmployeeId', onDelete: 'cascade', onUpdate: 'cascade' });
+ProjectsHistory.belongsTo(EmoloyeesTable, { foreignKey: 'EmployeeId', onDelete: 'cascade', onUpdate: 'cascade' })
 
 module.exports = {
     sequelize,

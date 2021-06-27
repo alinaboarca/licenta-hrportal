@@ -15,9 +15,6 @@ class WorkExperience extends Component {
   render() {
     return (
       <React.Fragment>
-        {/* <h1>iiiiiiiiiinnnnnnnnnnnnnn{
-          JSON.stringify(this.props.data)}</h1> */}
-
         {this.state.table ? (
           this.state.editForm ? (
             <WorkExperienceFormEdit
@@ -28,10 +25,9 @@ class WorkExperience extends Component {
             />
           ) : (
               <WorkExperienceTable
-                onAddWorkExperience={this.handleAddWorkExperience}
-                onEditWorkExperience={this.handleEditWorkExperience}
                 data={this.props.data}
                 back={this.props.back}
+                id={this.props.data.EmployeeId}
               />
             )
         ) : (

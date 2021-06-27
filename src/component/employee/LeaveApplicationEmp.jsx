@@ -27,6 +27,7 @@ class LeaveApplicationEmp extends Component {
               <LeaveApplicationEmpTable
                 onEditLeaveApplicationEmp={this.handleEditLeaveApplicationEmp}
                 data={this.props.data}
+                onAddLeaveApplicationEmp={this.handleAddLeaveApplicationEmp}
               />
             )
         ) : (

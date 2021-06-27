@@ -16,6 +16,7 @@ import {
 import AdminProjectDetails from "./AdminProjectDetails.jsx";
 import Departments from "../Departments.jsx";
 import Employees from "../Employees.jsx";
+import Axios from "axios";
 
 function AdminEmployees() {
   return <Employees />;
@@ -36,6 +37,7 @@ class DashboardAdmin extends Component {
   state = {
     redirect: true,
     checked: true,
+    employee: {}
   };
   handleChange = (checked) => {
     console.log("switch");
@@ -53,8 +55,16 @@ class DashboardAdmin extends Component {
     }
     this.setState({ checked });
   };
-
+  componentDidMount() {
+    Axios.get(
+      "http://localhost:3002/employees/user/" + this.props.data["UserId"]
+    ).then((res) => {
+      console.log(res.data);
+      this.setState({ employee: res.data, loading: false});
+    });
+  }
   render() {
+    console.log(this.props.data,'asdasdasda')
     return (
       <Router>
         {/* <Redirect to='/login'  /> */}
@@ -62,7 +72,7 @@ class DashboardAdmin extends Component {
         <div id="outer-main-div">
           <div id="outer-nav">
             <NavBar
-              loginInfo={this.props.data}
+              loginInfo={this.state.employee}
               checked={this.state.checked}
               handleChange={this.handleChange}
               onLogout={this.props.onLogout}

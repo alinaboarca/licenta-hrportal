@@ -21,6 +21,7 @@ import {
   faMale,
 } from "@fortawesome/free-solid-svg-icons";
 import Axios from "axios";
+import WorkExperienceTable from "./WorkExperienceTable";
 
 class DashboardHR extends Component {
   state = {
@@ -56,7 +57,7 @@ class DashboardHR extends Component {
   }
   render() {
     return (
-      <>
+      <React.Fragment>
       {!this.state.loading && <Router>
         {/* <Redirect to='/login'  /> */}
 
@@ -111,7 +112,7 @@ class DashboardHR extends Component {
                     to={
                       "/employee/" +
                       this.state.employee["EmployeeId"] +
-                      "/work-experience"
+                      "/projects"
                     }
                   >
                     <FontAwesomeIcon
@@ -159,9 +160,11 @@ class DashboardHR extends Component {
                 
                 <Route
                   exact
-                  path="/employee/:id/work-experience"
+                  path="/employee/:id/projects"
                   render={(props) => (
-                    <WorkExperience data={this.state.employee} back={false} />
+                    <WorkExperienceTable
+                    data={this.state.employee}
+                    /> 
                   )}
                 />
                 <Route
@@ -182,7 +185,7 @@ class DashboardHR extends Component {
           </div>
         </div>
       </Router>}
-     </>
+      </React.Fragment>
     );
   }
 }

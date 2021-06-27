@@ -104,7 +104,6 @@ class App extends Component {
   }
   handleSubmit = (event) => {
     event.preventDefault();
-    // console.log("id", event.target[0].value);
     this.setState({ pass: true });
     this.setState({ loading: true });
     this.login(event.target[0].value, event.target[1].value);
