@@ -11,6 +11,16 @@ const getProjects  = async (req, res) => {
     }
 };
 
+
+ const getEmpsWorkingOnAProject = async (req, res) => {
+    try {
+        ProjectHistories.findAll({where: {ProjectId: req.params.projectId}, include: [Employees, Projects]}).then(result => 
+            res.status(200).send(result ));
+    } catch (err) {
+        return res.send(err);
+    }
+};
+
 const assignProjectToEmployee = async (req, res) => {
     try {
     ProjectHistories.create({
@@ -78,7 +88,8 @@ module.exports = {
     getProjects,
     deleteProject,
     assignProjectToEmployee,
-    getAllProjectsOfOneEmployee
+    getAllProjectsOfOneEmployee,
+    getEmpsWorkingOnAProject
     
 
 }

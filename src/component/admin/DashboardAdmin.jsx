@@ -18,6 +18,7 @@ import Departments from "../Departments.jsx";
 import Employees from "../Employees.jsx";
 import Axios from "axios";
 import  ViewDepartment  from "../ViewDepartment.jsx";
+import ViewProject from "../ViewProject";
 
 function AdminEmployees() {
   return <Employees />;
@@ -116,7 +117,6 @@ class DashboardAdmin extends Component {
                 </li>
               </ul>
             </div>
-            {/* <div id="sidebar-top-content" /> */}
             <div id="main-area">
               <div id="sidebar-top-content" />
               <Switch>
@@ -127,6 +127,11 @@ class DashboardAdmin extends Component {
                   path="/admin/projects"
                   exact
                   component={AdminProjects}
+                />
+                <Route
+                  path="/admin/project/:id"
+                  exact
+                  component={ViewProject}
                 />
                 <Route path='/admin/departments/:id' exact component={ViewDepartment} />
                 <Route render={() => <NotFound404 />} />

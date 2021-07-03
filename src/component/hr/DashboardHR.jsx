@@ -18,6 +18,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Axios from "axios";
 import Departments from "../Departments";
+import ViewDepartment from "../ViewDepartment";
 
 function DepartmentF() {
   return <Departments />;
@@ -130,6 +131,8 @@ class DashboardHR extends Component {
                     <LeaveApplicationHR data={this.state.employee} />
                   )}
                 />
+                <Route path='/hr/departments/:id' exact component={ViewDepartment} />
+
 
                 <Route render={() => <NotFound404 />} />
               </Switch>

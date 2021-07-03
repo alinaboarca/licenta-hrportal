@@ -51,4 +51,5 @@ router.put('/projects/:id',projectController.updateProject);
 router.delete('/projects/:id',projectController.deleteProject);
 router.post('/projects/emp', projectController.assignProjectToEmployee);
 router.get('/projects/emp/:id', projectController.getAllProjectsOfOneEmployee);
+router.get('/projects/allEmp/:projectId', projectController.getEmpsWorkingOnAProject);
 module.exports = router;

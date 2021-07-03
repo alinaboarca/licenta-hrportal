@@ -10,6 +10,7 @@ import { Button } from "react-bootstrap";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
+import { withRouter } from "react-router-dom";
 
 
 const override = css`
@@ -130,6 +131,7 @@ class AdminProjectsTable extends Component {
   }
 
   render() {
+    const {  history } = this.props;
     return (
       <div id="table-outer-div-scroll">
         <h2 id="role-title">Project Details</h2>
@@ -158,8 +160,9 @@ class AdminProjectsTable extends Component {
             <AgGridReact
               columnDefs={this.state.columnDefs}
               defaultColDef={this.state.defaultColDef}
-              columnTypes={this.state.columnTypes}
+              columnTyps={this.state.columnTypes}
               rowData={this.state.projectData}
+              onCellClicked={e => history.push('/admin/project/'+e.data.ProjectId) }
               // floatingFilter={true}
               // onGridReady={this.onGridReady}
               pagination={true}
@@ -184,4 +187,4 @@ class AdminProjectsTable extends Component {
   }
 }
 
-export default AdminProjectsTable;
+export default withRouter(AdminProjectsTable);

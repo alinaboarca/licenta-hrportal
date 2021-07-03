@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Form, Button, Col, Row } from "react-bootstrap";
 
@@ -9,11 +9,14 @@ export const AdminProjectForm = (props) => {
     EndDate: "",
     Status: "ongoing",
   });
+
+  const [emps, setEmpls] = useState([]);
+  const [selectedEmps, setSelectedEmps] = useState([]);
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   const handleProjectSubmit = (event) => {
-    console.log('here')
+    console.log("here");
     event.preventDefault();
     console.log(formData);
 
@@ -21,13 +24,26 @@ export const AdminProjectForm = (props) => {
       .post("http://localhost:3002/projects", formData)
 
       .then((res) => {
-        console.log(res.data);
+        console.log('asdasda',res.data);
+        selectedEmps.forEach(async (emp) => {
+          await axios.post("http://localhost:3002/projects/emp", {
+            ProjectId: res.data.ProjectId,
+            EmployeeId: emp,
+          });
+        });
+
         props.onFormClose();
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
+  useEffect(() => {
+    axios.get("http://localhost:3002/employees").then((res) => {
+      setEmpls(res.data);
+    });
+  });
   return (
     <React.Fragment>
       <h2 id="role-form-title">Add Project Details</h2>
@@ -97,9 +113,32 @@ export const AdminProjectForm = (props) => {
               </Form.Control>
             </Col>
           </Form.Group>
+
+          <Form.Group as={Col} controlId="my_multiselect_field">
+            <Form.Label>My multiselect</Form.Label>
+
+            <Form.Control
+              as="select"
+              multiple
+              onChange={(e) => {
+                let arr = Array.from(e.target.selectedOptions).map(
+                  (element) => element.value
+                );
+                setSelectedEmps(arr);
+              }}
+            >
+              {emps.map((emp) => (
+                <option key={emp.EmployeeId} value={emp.EmployeeId}>
+                  {emp.FirstName} {emp.LastName}
+                </option>
+              ))}
+            </Form.Control>
+          </Form.Group>
           <Form.Group as={Row} id="form-submit-button">
             <Col sm={{ span: 10, offset: 2 }}>
-              <Button type="submit" onClick={handleProjectSubmit}>Submit</Button>
+              <Button type="submit" onClick={handleProjectSubmit}>
+                Submit
+              </Button>
             </Col>
           </Form.Group>
           <Form.Group as={Row} id="form-cancel-button">
