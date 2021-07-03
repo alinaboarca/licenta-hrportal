@@ -1,7 +1,7 @@
 let Sequelize = require('sequelize');
 
 const sequelize = new Sequelize(
-    'licenta_alina',
+    'licenta_2021',
     'root',
     '',
     {

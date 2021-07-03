@@ -14,7 +14,6 @@ const createDep = async (req, res) => {
     try {
         Departments.create({
            Name: req.body.Name,
-           Address: req.body.Address
         }).then(result => 
             res.status(200).send(result ));
 
@@ -28,7 +27,6 @@ const updateDep = async (req, res) => {
     console.log(req.params.id);
     Departments.update({
         Name: req.body.Name,
-           Address: req.body.Address
     }, { where: { DepartmentId: req.params.id } }).then(result => res.status(200).send(result));
 }
 const deleteDep = async (req, res) => {

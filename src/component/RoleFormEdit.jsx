@@ -27,7 +27,7 @@ export const RoleFormEdit = (props) => {
   };
   return (
     <div>
-      <h2 id="role-form-title">Edit Role Details</h2>
+      <h2 id="role-form-title">Edit Employee Details</h2>
       <div id="role-form-outer-div">
         <Form id="form" onSubmit={handleEmployeeSubmit}>
           <Form.Group as={Row}>

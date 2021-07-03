@@ -17,6 +17,7 @@ import AdminProjectDetails from "./AdminProjectDetails.jsx";
 import Departments from "../Departments.jsx";
 import Employees from "../Employees.jsx";
 import Axios from "axios";
+import  ViewDepartment  from "../ViewDepartment.jsx";
 
 function AdminEmployees() {
   return <Employees />;
@@ -41,10 +42,7 @@ class DashboardAdmin extends Component {
   };
   handleChange = (checked) => {
     console.log("switch");
-    // var sidebarV = this.refs.sidebar;
-    // var sidebarV = React.findDOMNode( this.refs.sidebar);
-    // sidebarV.style.disply="none";
-
+    
     if (this.state.checked == true) {
       // document.getElementById("sidebar").setAttribute("style", "display:none")
       document.getElementById("sidebar").setAttribute("class", "display-none");
@@ -64,7 +62,6 @@ class DashboardAdmin extends Component {
     });
   }
   render() {
-    console.log(this.props.data,'asdasdasda')
     return (
       <Router>
         {/* <Redirect to='/login'  /> */}
@@ -131,6 +128,7 @@ class DashboardAdmin extends Component {
                   exact
                   component={AdminProjects}
                 />
+                <Route path='/admin/departments/:id' exact component={ViewDepartment} />
                 <Route render={() => <NotFound404 />} />
               </Switch>
             </div>

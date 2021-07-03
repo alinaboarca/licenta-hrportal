@@ -10,6 +10,7 @@ import { Button } from "react-bootstrap";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
+import {  withRouter } from "react-router-dom";
 
 const override = css`
   display: block;
@@ -19,6 +20,8 @@ const override = css`
 `;
 
 class PositionTable extends Component {
+
+ 
   state = {
     departmentData: [],
     loading: true,
@@ -60,6 +63,7 @@ class PositionTable extends Component {
   };
   positionObj = [];
   rowDataT = [];
+  
 
   loadDepartmentData = () => {
     axios
@@ -114,6 +118,7 @@ class PositionTable extends Component {
   }
 
   render() {
+    const {  history } = this.props;
     return (
       <div id="table-outer-div-scroll">
         <h2 id="role-title">Departments details</h2>
@@ -133,6 +138,7 @@ class PositionTable extends Component {
               columnDefs={this.state.columnDefs}
               defaultColDef={this.state.defaultColDef}
               columnTypes={this.state.columnTypes}
+              onCellClicked={e => history.push('/admin/departments/'+e.data.DepartmentId) }
               rowData={this.state.departmentData}
               pagination={true}
               paginationPageSize={10}
@@ -155,4 +161,4 @@ class PositionTable extends Component {
   }
 }
 
-export default PositionTable;
+export default withRouter(PositionTable);

@@ -6,6 +6,5 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue: DataTypes.UUIDV4
         },
         "Name": DataTypes.STRING,
-        "Address": DataTypes.STRING
     });
 }

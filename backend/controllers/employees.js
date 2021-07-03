@@ -1,5 +1,6 @@
 const Employees = require('../models').EmoloyeesTable;
 const BankAccount = require('../models').BankAccountTable;
+const DepartmentTable = require('../models').DepartmentsTable;
 
 
 const getEmployees  = async (req, res) => {
@@ -10,6 +11,16 @@ const getEmployees  = async (req, res) => {
         return res.send(err);
     }
 };
+
+const getEmployeesFromDepartment  = async (req, res) => {
+    try {
+        Employees.findAll({where: { DepartmentId: req.params.id}, include: [DepartmentTable]}).then(result => 
+            res.status(200).send(result ));
+    } catch (err) {
+        return res.send(err);
+    }
+};
+
 
 const getEmployeeById = async (req, res) => {
     try {
@@ -88,5 +99,6 @@ module.exports = {
     deleteEmployee,
     getEmployeeById,
     getEmpByUserId,
-    getEmpsAndBankAccounts
+    getEmpsAndBankAccounts,
+    getEmployeesFromDepartment
 }

@@ -21,6 +21,7 @@ router.delete('/employees/:id',empController.deleteEmployee);
 router.get('/employees/:id', empController.getEmployeeById)
 router.get('/employees/user/:id', empController.getEmpByUserId)
 router.get('/emp/salary', empController.getEmpsAndBankAccounts)
+router.get('/employees/department/:id', empController.getEmployeesFromDepartment);
 
 //bankaccount
 router.post("/account",bankAccountController.createAcc);

@@ -21,7 +21,7 @@ databaseModels.sequelize.sync();
   //   const salt = bcrypt.genSaltSync(10);
   //   let ePassword1 = bcrypt.hashSync('asd', salt);
   //   databaseModels.UsersTable.create({ Username: 'admin@gmail.com', Password:ePassword1, "Role": "Admin" }).then(result => {
-  //     databaseModels.EmoloyeesTable.create({Email: "admin@gmail.com", FirstName: "Admin", UserId: result.UserId, FirstName: "admin" })
+  //     databaseModels.EmoloyeesTable.create({Email: "admin@gmail.com", FirstName: "Admin", UserId: result.UserId })
   //   });
   //   let ePassword2 = bcrypt.hashSync('hr', salt);
   //   databaseModels.UsersTable.create({ Username: 'hr@gmail.com', Password: ePassword2, "Role": "Hr" }).then(result => {

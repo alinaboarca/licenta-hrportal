@@ -93,10 +93,7 @@ class RoleTable extends Component {
         this.roleObj = response.data;
         this.setState({ roleData: response.data });
         this.setState({ loading: false });
-       
-       
-        this.setState({ rowData: this.roleData });
-      })
+         })
       .catch(error => {
         console.log(error);
       });
@@ -166,6 +163,7 @@ class RoleTable extends Component {
               columnDefs={this.state.columnDefs}
               defaultColDef={this.state.defaultColDef}
               columnTypes={this.state.columnTypes}
+              
               rowData={this.state.roleData}
               // floatingFilter={true}
               // onGridReady={this.onGridReady}
