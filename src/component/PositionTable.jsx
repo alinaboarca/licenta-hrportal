@@ -135,12 +135,16 @@ class PositionTable extends Component {
               columnDefs={this.state.columnDefs}
               defaultColDef={this.state.defaultColDef}
               columnTypes={this.state.columnTypes}
-              onCellClicked={(e) => {
-                if ( window.location.href.indexOf("admin") > -1) {
-                  history.push("/admin/departments/" + e.data.DepartmentId);
-                } else {
-                  history.push("/hr/departments/" + e.data.DepartmentId);
+              onCellClicked={(e) => { 
+                console.log(e);
+                if(e.colDef.field !== "edit" && e.colDef.field !== "delete") {
+                  if ( window.location.href.indexOf("admin") > -1) {
+                    history.push("/admin/departments/" + e.data.DepartmentId);
+                  } else {
+                    history.push("/hr/departments/" + e.data.DepartmentId);
+                  }
                 }
+                
               }}
               rowData={this.state.departmentData}
               pagination={true}

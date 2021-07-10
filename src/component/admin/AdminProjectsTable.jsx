@@ -5,8 +5,6 @@ import { faPlus, faTrash, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { RingLoader } from "react-spinners";
 import { css } from "@emotion/react";
 import { Button } from "react-bootstrap";
-
-
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
@@ -26,7 +24,7 @@ class AdminProjectsTable extends Component {
     loading: true,
 
     columnDefs: [
-      
+
       {
         headerName: "Project Title",
         field: "Name",
@@ -37,7 +35,7 @@ class AdminProjectsTable extends Component {
         headerName: "Start Date",
         field: "StartDate",
         sortable: true,
-        
+
         // filter: true ,
       },
       {
@@ -58,8 +56,6 @@ class AdminProjectsTable extends Component {
         filter: false,
         width: 30,
         cellRendererFramework: this.renderEditButton.bind(this),
-
-
       },
       {
         headerName: "",
@@ -131,7 +127,7 @@ class AdminProjectsTable extends Component {
   }
 
   render() {
-    const {  history } = this.props;
+    const { history } = this.props;
     return (
       <div id="table-outer-div-scroll">
         <h2 id="role-title">Project Details</h2>
@@ -162,7 +158,7 @@ class AdminProjectsTable extends Component {
               defaultColDef={this.state.defaultColDef}
               columnTyps={this.state.columnTypes}
               rowData={this.state.projectData}
-              onCellClicked={e => history.push('/admin/project/'+e.data.ProjectId) }
+              onCellClicked={e => { if (e.colDef.field !== 'delete' && e.colDef.field !== "edit") { history.push('/admin/project/' + e.data.ProjectId) } }}
               // floatingFilter={true}
               // onGridReady={this.onGridReady}
               pagination={true}
@@ -171,16 +167,16 @@ class AdminProjectsTable extends Component {
             />
           </div>
         ) : (
-            <div id="loading-bar">
-              <RingLoader
-                css={override}
-                sizeUnit={"px"}
-                size={50}
-                color={"#0000ff"}
-                loading={true}
-              />
-            </div>
-          )}
+          <div id="loading-bar">
+            <RingLoader
+              css={override}
+              sizeUnit={"px"}
+              size={50}
+              color={"#0000ff"}
+              loading={true}
+            />
+          </div>
+        )}
 
       </div>
     );

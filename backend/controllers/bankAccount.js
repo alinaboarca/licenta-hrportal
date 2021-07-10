@@ -10,7 +10,7 @@ const getAcc  = async (req, res) => {
 };
 const getAccByEmpId  = async (req, res) => {
     try {
-        Account.findAll({EmployeeId: req.params.id}).then(result => 
+        Account.findAll({where: {EmployeeId: req.params.id}}).then(result => 
             res.status(200).send(result ));
     } catch (err) {
         return res.send(err);

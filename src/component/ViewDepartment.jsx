@@ -93,7 +93,9 @@ class ViewDepartment extends Component {
     return  <React.Fragment>
         {!this.state.loading ? (
             <div id="table-outer-div-scroll">
-            <h2 id="role-title">Employees in the {this.state.roleData[0].Department.Name} department</h2>
+              {this.state.roleData[0] ? <h2 id="role-title">Employees in the {this.state.roleData[0].Department.Name} department</h2> : 
+              <h2 id="role-title">No Employees in the selected department</h2> }
+           
             <div id="clear-both" />
           <div
             id="table-div"

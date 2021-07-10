@@ -14,9 +14,11 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
 app.use(cors());
 //sincronizare baza de date, in functie de modele - aici se creaza baza de date
+
 databaseModels.sequelize.sync();
 
 // daca vrem sa stergem toate tabelele existente si sa le facem de la 0
+
   // databaseModels.sequelize.sync({force: true}).then(() => {
   //   const salt = bcrypt.genSaltSync(10);
   //   let ePassword1 = bcrypt.hashSync('asd', salt);

@@ -83,10 +83,11 @@ class EducationTable extends Component {
 
 
   loadEducationData = () => {
+    console.log(this.props.data["EmployeeId"],'asd')
     axios
       .get("http://localhost:3002/account/" + this.props.data["EmployeeId"])
       .then(response => {
-       
+       console.log('asdsadas', response.data)
         this.setState({ educationData: response.data });
         this.setState({ loading: false });
         
