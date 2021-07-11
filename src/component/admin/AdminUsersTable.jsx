@@ -87,7 +87,7 @@ class AdminUsersTable extends Component {
     console.log(e);
     if (
       window.confirm(
-        "Are you sure to delete this record,It Will Delete All Projects Related to This Portal? "
+        "Are you sure to delete this user? You can't bring him back "
       ) === true
     ) {
       axios

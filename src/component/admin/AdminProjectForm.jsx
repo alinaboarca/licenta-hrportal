@@ -43,7 +43,7 @@ export const AdminProjectForm = (props) => {
     axios.get("http://localhost:3002/employees").then((res) => {
       setEmpls(res.data);
     });
-  });
+  },[]);
   return (
     <React.Fragment>
       <h2 id="role-form-title">Add Project Details</h2>

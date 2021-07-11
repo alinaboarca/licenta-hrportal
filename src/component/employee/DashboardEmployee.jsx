@@ -6,8 +6,6 @@ import { Redirect } from "react-router-dom";
 import NavBar from "../NavBar.jsx";
 import PersonalInfo from "./PersonalInfo.jsx";
 import Education from "./Education.jsx";
-import FamilyInfo from "./FamilyInfo.jsx";
-import WorkExperience from "./WorkExperience.jsx";
 import LeaveApplicationEmp from "./LeaveApplicationEmp.jsx";
 import NotFound404 from "../NotFound404.jsx";
 
