@@ -49,6 +49,7 @@ router.post("/projects",projectController.createProject);
 router.get('/projects',projectController.getProjects);
 router.put('/projects/:id',projectController.updateProject);
 router.delete('/projects/:id',projectController.deleteProject);
+router.delete('/deleteprojects/emp/:ProjectId/:EmployeeId',projectController.deleteEmpFromProject);
 router.post('/projects/emp', projectController.assignProjectToEmployee);
 router.get('/projects/emp/:id', projectController.getAllProjectsOfOneEmployee);
 router.get('/projects/allEmp/:projectId', projectController.getEmpsWorkingOnAProject);

@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { Form, Button, Col, Row } from "react-bootstrap";
 import axios from "axios";
+import { useEffect } from "react";
 
 export const RoleFormEdit = (props) => {
   const [formData, setFormData] = useState({ ...props.editData });
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+  const [departments, setDeps] = useState([]);
+
   const handleEmployeeSubmit = (event) => {
     event.preventDefault();
     console.log(formData);
@@ -18,13 +21,26 @@ export const RoleFormEdit = (props) => {
       )
 
       .then((res) => {
-        console.log('asdasdasda',res.data);
+        console.log("asdasdasda", res.data);
         props.onFormEditClose(formData);
       })
       .catch((err) => {
         console.log(err);
       });
   };
+  useEffect(() => {
+    axios
+      .get("http://localhost:3002/departments")
+      .then((res) => {
+        setDeps(res.data);
+        if (!formData.DepartmentId) {
+          setFormData({ ...formData, DepartmentId: res.data[0].DepartmentId });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <div>
       <h2 id="role-form-title">Edit Employee Details</h2>
@@ -105,6 +121,23 @@ export const RoleFormEdit = (props) => {
                 required
               />
             </Col>
+          </Form.Group>
+          <Form.Group controlId="asd">
+            <Form.Label> Department</Form.Label>
+            <Form.Control
+              as="select"
+              disabled={window.location.href.indexOf("admin") === -1 && window.location.href.indexOf("hr") === -1}
+              value={formData.DepartmentId}
+              onChange={(e) =>
+                setFormData({ ...formData, DepartmentId: e.target.value })
+              }
+            >
+              {departments.map((dep) => (
+                <option key={dep.DepartmentId} value={dep.DepartmentId}>
+                  {dep.Name}
+                </option>
+              ))}
+            </Form.Control>
           </Form.Group>
 
           <Form.Group as={Row} id="form-submit-button">

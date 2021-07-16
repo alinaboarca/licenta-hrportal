@@ -53,7 +53,7 @@ export const LeaveApplicationEmpFormtForm = (props) => {
           </Form.Group>
           <Form.Group as={Row}>
             <Form.Label column sm={2}>
-              FromDate
+              From Date
             </Form.Label>
             <Col sm={10} className="form-input">
               <Form.Control type="date" required  name="StartDate" onChange={e => handleChange(e)} />
@@ -61,7 +61,7 @@ export const LeaveApplicationEmpFormtForm = (props) => {
           </Form.Group>
           <Form.Group as={Row}>
             <Form.Label column sm={2}>
-              ToDate
+              To Date
             </Form.Label>
             <Col sm={10} className="form-input">
               <Form.Control type="date" name="EndDate" onChange={e => handleChange(e)} placeholder="ToDate" required />

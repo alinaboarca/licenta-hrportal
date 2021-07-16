@@ -66,6 +66,7 @@ export const BankAccountForm = (props) => {
               />
             </Col>
           </Form.Group>
+          
           <Form.Group as={Row}>
             <Form.Label column sm={2}>
               Bank Name
@@ -73,7 +74,7 @@ export const BankAccountForm = (props) => {
             <Col sm={10} className="form-input">
               <Form.Control
                 type="Text"
-                placeholder="YYYY-MM-DD"
+                placeholder="Bank Name"
                 name="BankName"
                 onChange={(e) => handleChange(e)}
                 required

@@ -82,7 +82,9 @@ class PersonalInfoTable extends Component {
   rowDataT = [];
   componentDidMount() {
     let x = [];
+    console.log('this.props.id', this.props)
     axios.get('http://localhost:3002/employees/'+this.props.id).then(res => {
+      console.log('herej',res.data)
       x.push(res.data);
       this.setState({personalInfoData: x});
     })

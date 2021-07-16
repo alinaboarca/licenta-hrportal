@@ -68,29 +68,29 @@ export const AdminProjectForm = (props) => {
           </Form.Group>
           <Form.Group as={Row}>
             <Form.Label column sm={2}>
-              Start date
+              Start Date
             </Form.Label>
             <Col sm={10} className="form-input">
               <Form.Control
-                type="Text"
-                placeholder="YYYY-MM-DD"
+                type="date"
+                value={formData.StartDate}
+                required
                 name="StartDate"
                 onChange={(e) => handleChange(e)}
-                required
               />
             </Col>
           </Form.Group>
           <Form.Group as={Row}>
             <Form.Label column sm={2}>
-              End date
+              End Date
             </Form.Label>
             <Col sm={10} className="form-input">
               <Form.Control
-                type="Text"
-                placeholder="YYYY-MM-DD"
+                type="date"
+                value={formData.EndDate}
+                required
                 name="EndDate"
                 onChange={(e) => handleChange(e)}
-                required
               />
             </Col>
           </Form.Group>

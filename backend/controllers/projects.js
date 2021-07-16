@@ -82,6 +82,11 @@ const deleteProject = async (req, res) => {
     console.log(req.params.id);
     Projects.destroy({ where: { ProjectId: req.params.id } }).then(result => res.status(200).send({msg: 'success'}));
 }
+
+const deleteEmpFromProject = async (req, res) => {
+    console.log('hehrererer',req.params );
+    ProjectHistories.destroy({ where: { ProjectId: req.params.ProjectId, EmployeeId: req.params.EmployeeId } }).then(result => res.status(200).send({msg: 'success'}));
+}
 module.exports = {
     updateProject,
     createProject,
@@ -89,7 +94,8 @@ module.exports = {
     deleteProject,
     assignProjectToEmployee,
     getAllProjectsOfOneEmployee,
-    getEmpsWorkingOnAProject
+    getEmpsWorkingOnAProject,
+    deleteEmpFromProject
     
 
 }
